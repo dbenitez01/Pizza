@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Appetizer;
+use App\AppetizerItem;
 
-class AppetizerController extends Controller
+class AppetizerItemController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,8 @@ class AppetizerController extends Controller
      */
     public function index()
     {
-
+      $appetizers = AppetizerItem::all();
+      return view('appetizeritems.index', compact('appetizers'));
     }
 
     /**
@@ -24,7 +25,7 @@ class AppetizerController extends Controller
      */
     public function create()
     {
-      // return view('appetizers.create');
+        return view('appetizeritems.create');
     }
 
     /**
@@ -35,7 +36,16 @@ class AppetizerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+      $this->validate(request(), [
+        'name' => 'required',
+        'description' => 'required',
+        'price' => 'required'
+      ]);
+      // dd(request()->all());
+      AppetizerItem::create(request(['name', 'description','price']));
+
+      return redirect('/appetizers');
     }
 
     /**
@@ -57,7 +67,8 @@ class AppetizerController extends Controller
      */
     public function edit($id)
     {
-        //
+      $app = AppetizerItem::find($id);
+      return view('appetizeritems.edit', compact('app'));
     }
 
     /**
@@ -69,7 +80,18 @@ class AppetizerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate(request(), [
+          'name' => 'required',
+          'description' => 'required',
+          'price' => 'required'
+        ]);
+        $app = AppetizerItem::find($id);
+        $app->name = $request['name'];
+        $app->description = $request['description'];
+        $app->price = $request['price'];
+        $app->save();
+
+        return redirect('/appetizers');
     }
 
     /**
@@ -80,6 +102,9 @@ class AppetizerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $app = AppetizerItem::find($id);
+        $app->delete();
+
+        return redirect('/appetizers');
     }
 }

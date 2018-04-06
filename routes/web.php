@@ -15,4 +15,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('appetizers', 'AppetizerController');
+Route::resource('appetizers', 'AppetizerItemController');

@@ -62,10 +62,10 @@
 <div class="container">
   @yield ('content')
 </div>
-
-<footer class="container-fluid text-center">
+<hr>
+<div class="container-fluid text-center">
     <p>Footer Text</p>
-</footer>
+</div>
 
 </body>
 </html>
