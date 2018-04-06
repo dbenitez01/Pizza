@@ -1,6 +1,6 @@
 @extends ('layouts.master')
   @section ('content')
-    <h1>Edit an Appetizer</h1>
+    <h1>Edit {{ $app->name }}</h1>
     {{ Form::model($app, array('route' => array('appetizers.update', $app->id), 'method' => 'PUT')) }}
       {{ csrf_field() }}
       <div class="form-group">
