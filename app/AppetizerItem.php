@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class AppetizerItem extends Model
 {
     protected $fillable = ['name', 'description','price'];
-    public function appetizer() {
+    public function appetizers() {
       return $this->hasMany(Appetizer::class);
     }
 }

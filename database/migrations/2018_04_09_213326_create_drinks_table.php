@@ -15,7 +15,7 @@ class CreateDrinksTable extends Migration
     {
         Schema::create('drinks', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('drink_item_id');
+            $table->integer('drinkitem_id');
             $table->integer('quantity');
             $table->integer('order_id');
             $table->double('subtotal_price');

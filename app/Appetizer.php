@@ -6,7 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Appetizer extends Model
 {
-  public function post() {
+  public function item() {
     return $this->belongsTo(AppetizerItem::class);
+  }
+  public function order() {
+    return $this->belongsTo(Order::class);
   }
 }
