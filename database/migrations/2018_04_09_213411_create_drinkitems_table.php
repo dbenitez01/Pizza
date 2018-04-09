@@ -13,7 +13,7 @@ class CreateDrinkitemsTable extends Migration
      */
     public function up()
     {
-        Schema::create('drinkitems', function (Blueprint $table) {
+        Schema::create('drink_items', function (Blueprint $table) {
             $table->increments('id');
             $table->String('brand');
             $table->text('description');
@@ -29,6 +29,6 @@ class CreateDrinkitemsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('drinkitems');
+        Schema::dropIfExists('drink_items');
     }
 }
