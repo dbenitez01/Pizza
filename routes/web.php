@@ -18,3 +18,4 @@ Route::get('/', function () {
 Route::resource('appetizers', 'AppetizerItemController');
 Route::resource('drinks',  'DrinkItemController');
 Route::resource('desserts', 'DessertItemController');
+Route::resource('entrees', 'EntreeItemController');

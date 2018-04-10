@@ -1,7 +1,7 @@
 @extends ('layouts.master')
   @section ('content')
-    <h1>Create a new Dessert</h1>
-    <form action="/desserts" method="post">
+    <h1>Create a new Entree</h1>
+    <form action="/entrees" method="post">
       {{ csrf_field() }}
       <div class="form-group">
         <label for="name">Name</label>
