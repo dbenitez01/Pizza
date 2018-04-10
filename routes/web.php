@@ -20,3 +20,7 @@ Route::resource('drinks',  'DrinkItemController');
 Route::resource('desserts', 'DessertItemController');
 Route::resource('entrees', 'EntreeItemController');
 Route::resource('toppings', 'ToppingItemController');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
