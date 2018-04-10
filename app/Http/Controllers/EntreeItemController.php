@@ -42,7 +42,7 @@ class EntreeItemController extends Controller
             'price' => 'required'
         ]);
         // dd(request()->all());
-        EntreeItem::create(request(['name', 'description','price']));
+        EntreeItem::create(request(['name','description','price']));
 
         return redirect('/entrees');
     }

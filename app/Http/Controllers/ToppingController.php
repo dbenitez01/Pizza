@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Entree;
+use App\Topping;
 use Illuminate\Http\Request;
 
-class EntreeController extends Controller
+class ToppingController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,7 +41,7 @@ class EntreeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Entree  $entree
+     * @param  \App\Topping  $topping
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -52,7 +52,7 @@ class EntreeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Entree  $entree
+     * @param  \App\Topping  $topping
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -64,7 +64,7 @@ class EntreeController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Entree  $entree
+     * @param  \App\Topping  $topping
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -75,7 +75,7 @@ class EntreeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Entree  $entree
+     * @param  \App\Topping  $topping
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
