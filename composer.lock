@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "8240928acea6b4a806a5ea083f20c12c",
+    "content-hash": "379c5d3bbc3711c52e5d98b9762b2a79",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -656,16 +656,16 @@
         },
         {
             "name": "laravelcollective/html",
-            "version": "v5.6.5",
+            "version": "v5.6.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LaravelCollective/html.git",
-                "reference": "623a150c91e2d3f92eeee9f9eda58a841e3cb548"
+                "reference": "b3a10245c791a211e5f8ec37117f4549cd22aabe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LaravelCollective/html/zipball/623a150c91e2d3f92eeee9f9eda58a841e3cb548",
-                "reference": "623a150c91e2d3f92eeee9f9eda58a841e3cb548",
+                "url": "https://api.github.com/repos/LaravelCollective/html/zipball/b3a10245c791a211e5f8ec37117f4549cd22aabe",
+                "reference": "b3a10245c791a211e5f8ec37117f4549cd22aabe",
                 "shasum": ""
             },
             "require": {
@@ -720,7 +720,7 @@
             ],
             "description": "HTML and Form Builders for the Laravel Framework",
             "homepage": "https://laravelcollective.com",
-            "time": "2018-03-16T16:57:31+00:00"
+            "time": "2018-04-09T14:09:32+00:00"
         },
         {
             "name": "league/flysystem",

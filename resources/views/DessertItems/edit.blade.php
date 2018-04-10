@@ -1,11 +1,11 @@
 @extends ('layouts.master')
   @section ('content')
-    <h1>Edit {{ $drink->brand }}</h1>
-    {{ Form::model($app, array('route' => array('drinks.update', $drink->id), 'method' => 'PUT')) }}
+    <h1>Edit {{ $des->name }}</h1>
+    {{ Form::model($des, array('route' => array('desserts.update', $des->id), 'method' => 'PUT')) }}
       {{ csrf_field() }}
       <div class="form-group">
-        {{ Form::label('brand', 'Brand') }}
-        {{ Form::text('brand', null, array('class' => 'form-control')) }}
+        {{ Form::label('name', 'Name') }}
+        {{ Form::text('name', null, array('class' => 'form-control')) }}
       </div>
       <div class="form-group">
         {{ Form::label('description', 'Description') }}
