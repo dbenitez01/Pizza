@@ -8,6 +8,6 @@ class ToppingItem extends Model
 {
     protected $fillable = ['type', 'description', 'price'];
     public function toppings(){
-        return $this->hasMany(Entree::class);
+        return $this->hasMany(Topping::class);
     }
 }
