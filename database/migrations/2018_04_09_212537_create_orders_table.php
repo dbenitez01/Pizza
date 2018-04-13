@@ -18,6 +18,7 @@ class CreateOrdersTable extends Migration
             $table->double('total_price');
             $table->integer('user_id');
             $table->integer('location_id');
+            $table->enum('status', ['new', 'in progress','complete']);
             $table->timestamps();
         });
     }

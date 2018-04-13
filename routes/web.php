@@ -24,3 +24,4 @@ Route::resource('toppings', 'ToppingItemController');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/orders', 'OrderController@index')->name('orders');
