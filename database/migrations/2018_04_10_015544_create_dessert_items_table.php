@@ -29,6 +29,6 @@ class CreateDessertItemsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('desserts_items');
+        Schema::dropIfExists('dessert_items');
     }
 }

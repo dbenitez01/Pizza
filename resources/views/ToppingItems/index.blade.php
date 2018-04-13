@@ -1,5 +1,6 @@
 @extends ('layouts.master')
   @section ('content')
+    <div class="container">
     <h1>Toppings</h1>
       <div class="row">
         <div class="col-md-12">
@@ -32,5 +33,8 @@
           </table>
           <a href="/toppings/create" class="btn btn-primary">Create new Topping</a>
         </div>
+      </div>
+
+
       </div>
   @endsection

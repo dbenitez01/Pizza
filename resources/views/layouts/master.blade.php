@@ -38,6 +38,23 @@
                         <li><a class="nav-link" href="#">Menu</a></li>
                         <li><a class="nav-link" href="#">Order</a></li>
                         <li><a class="nav-link" href="#">Contact</a></li>
+                        @auth
+                          @if (Auth::user()->is_admin)
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    Admin <span class="caret"></span>
+                                </a>
+
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('appetizers.index') }}">Appetizers</a>
+                                    <a class="dropdown-item" href="{{ route('entrees.index') }}">Entrees</a>
+                                    <a class="dropdown-item" href="{{ route('drinks.index') }}">Drinks</a>
+                                    <a class="dropdown-item" href="{{ route('desserts.index') }}">Desserts</a>
+                                    <a class="dropdown-item" href="{{ route('toppings.index') }}">Toppings</a>
+                                    <a class="dropdown-item" href="#">Pizzas</a>
+                            </div>
+                          @endif
+                        @endauth
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -70,9 +87,9 @@
             </div>
         </nav>
 
-
+          
             @yield('content')
-        
+
     </div>
 </body>
 </html>

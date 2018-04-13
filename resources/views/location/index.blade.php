@@ -1,5 +1,6 @@
 @extends ('layouts.master')
 @section ('content')
+  <div class="container">
 @foreach($location as $loc)
     <div class="row">
         <div class="col-md-6">
@@ -10,4 +11,7 @@
 
     </div>
     @endforeach
+
+
+    </div>
     @endsection

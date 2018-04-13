@@ -1,5 +1,6 @@
 @extends ('layouts.master')
   @section ('content')
+    <div class="container">
     <h1>Create a new Dessert</h1>
     <form action="/desserts" method="post">
       {{ csrf_field() }}
@@ -20,5 +21,6 @@
       </div>
     </form>
     @include('layouts.partials.errors')
+    </div>
 
   @endsection

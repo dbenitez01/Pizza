@@ -1,5 +1,6 @@
 @extends ('layouts.master')
   @section ('content')
+    <div class="container">
     <h1>Desserts</h1>
       <div class="row">
         <div class="col-md-12">
@@ -32,5 +33,7 @@
           </table>
           <a href="/desserts/create" class="btn btn-primary">Create new Dessert</a>
         </div>
+      </div>
+
       </div>
   @endsection

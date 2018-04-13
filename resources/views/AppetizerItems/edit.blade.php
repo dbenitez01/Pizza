@@ -1,5 +1,6 @@
 @extends ('layouts.master')
   @section ('content')
+    <div class="container">
     <h1>Edit {{ $app->name }}</h1>
     {{ Form::model($app, array('route' => array('appetizers.update', $app->id), 'method' => 'PUT')) }}
       {{ csrf_field() }}
@@ -20,5 +21,8 @@
       </div>
     {{ Form::close() }}
     @include('layouts.partials.errors')
+
+
+    </div>
 
   @endsection
