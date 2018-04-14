@@ -20,6 +20,9 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/carousel.css') }}" rel="stylesheet">
+
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
 </head>
 <body>
     <div id="app">
@@ -36,7 +39,7 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         <li><a class="nav-link" href="#">Menu</a></li>
-                        <li><a class="nav-link" href="#">Order</a></li>
+                        <li><a class="nav-link" href="{{ route('orders.create') }}">Order</a></li>
                         <li><a class="nav-link" href="#">Contact</a></li>
                         @auth
                           @if (Auth::user()->is_admin)
