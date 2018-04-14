@@ -15,13 +15,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('appetizers', 'AppetizerItemController');
-Route::resource('drinks',  'DrinkItemController');
-Route::resource('desserts', 'DessertItemController');
-Route::resource('entrees', 'EntreeItemController');
-Route::resource('toppings', 'ToppingItemController');
+Route::resource('appetizers', 'AppetizerItemController')->middleware('admin');
+Route::resource('drinks',  'DrinkItemController')->middleware('admin');;
+Route::resource('desserts', 'DessertItemController')->middleware('admin');;
+Route::resource('entrees', 'EntreeItemController')->middleware('admin');;
+Route::resource('toppings', 'ToppingItemController')->middleware('admin');;
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/orders', 'OrderController@index')->name('orders');
+Route::get('/orders/create', 'OrderController@create')->name('orders.create');
