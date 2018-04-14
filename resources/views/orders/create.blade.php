@@ -2,7 +2,7 @@
 @section ('content')
   <div class="container">
     {{-- TODO: Orders --}}
-    <h1>yo</h1>
+    <h1>Find A Local One Stop Pizza Shop</h1>
   </div>
 
 @endsection
