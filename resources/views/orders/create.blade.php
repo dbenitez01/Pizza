@@ -22,8 +22,11 @@
       </div> <!-- End icon row -->
     </div>
     {{-- TODO: List locaions when clicking one of the buttons --}}
+    <div class="static"
+     v-bind:class="{ active: isActive, 'text-danger': hasError }">
+     hello
+    </div>
 
-    
   </div>
 
 @endsection

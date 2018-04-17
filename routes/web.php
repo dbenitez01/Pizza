@@ -20,6 +20,7 @@ Route::resource('drinks',  'DrinkItemController')->middleware('admin');;
 Route::resource('desserts', 'DessertItemController')->middleware('admin');;
 Route::resource('entrees', 'EntreeItemController')->middleware('admin');;
 Route::resource('toppings', 'ToppingItemController')->middleware('admin');;
+Route::resource('pizzas', 'PizzaTypeController')->middleware('admin');;
 
 Auth::routes();
 

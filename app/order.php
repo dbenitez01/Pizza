@@ -18,6 +18,9 @@ class Order extends Model
   public function entrees() {
     return $this->hasMany(Entree::class);
   }
+  public function pizzas() {
+    return $this->hasMany(Pizza::class);
+  }
 
 
   public function user() {

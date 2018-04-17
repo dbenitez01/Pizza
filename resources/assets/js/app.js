@@ -17,6 +17,10 @@ window.Vue = require('vue');
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
-const app = new Vue({
-    el: '#app'
+app = new Vue({
+    el: '#app',
+    data: {
+      isActive: true,
+      hasError: false
+    }
 });
