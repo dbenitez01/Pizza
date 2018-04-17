@@ -13893,12 +13893,78 @@ window.Vue = __webpack_require__(36);
 
 Vue.component('example-component', __webpack_require__(39));
 
+Vue.component('tabs', {
+  template: '\n  <div>\n    <hr> <!-- subnav -->\n      <ul class="nav justify-content-center nav-fill">\n        <li v-for="tab in tabs" class="nav-item" :class=" { \'is-Active\': tab.isActive }">\n          <h4><a :href="tab.href" @click="selectTab(tab)">{{ tab.name }}</a></h4>\n        </li>\n      </ul>\n\n    <hr> <!-- end subnav -->\n\n    <div class="tabs-details">\n      <slot></slot>\n    </div>\n  </div>\n  ',
+  data: function data() {
+    return { tabs: [] };
+  },
+  created: function created() {
+    this.tabs = this.$children;
+  },
+
+  methods: {
+    selectTab: function selectTab(selectedTab) {
+      this.tabs.forEach(function (tab) {
+        tab.isActive = tab.name == selectedTab.name;
+      });
+    }
+  }
+});
+
+Vue.component('tab', {
+  template: '\n    <div v-show="isActive"><slot></slot></div>\n  ',
+  props: {
+    name: { required: true },
+    selected: { default: false }
+  },
+  computed: {
+    href: function href() {
+      return '#' + this.name.toLowerCase().replace(/ /g, "-");
+    }
+  },
+  data: function data() {
+    return {
+      isActive: false
+    };
+  },
+  mounted: function mounted() {
+    this.isActive = this.selected;
+  }
+});
+
+Vue.component('card', {
+  props: ['title', 'body'],
+  data: function data() {
+    return {
+      isVisible: true
+    };
+  },
+
+  template: '\n  <div class="card" style="width: 18rem;" v-if="isVisible">\n    <img class="card-img-top" src="..." alt="Card image cap">\n    <div class="card-body">\n      <h5 class="card-title">{{ title }}</h5>\n      <button @click="hideModal">x</button>\n      <p class="card-text">{{ body }}</p>\n      <a href="#" class="btn btn-primary">Go somewhere</a>\n    </div>\n  </div>\n  ',
+  methods: {
+    hideModal: function hideModal() {
+      this.isVisible = false;
+    }
+  }
+});
+
 app = new Vue({
   el: '#app',
   data: {
-    isActive: true,
-    hasError: false
+    message: 'Hello World',
+    names: ['Joe', 'Mary', 'Jane'],
+    tasks: [{ description: 'Go to the store', completed: true }, { description: 'Finish project', completed: true }, { description: 'Eat', completed: false }]
+  },
+  computed: {
+    incompleteTasks: function incompleteTasks() {
+      return this.tasks.filter(function (task) {
+        return !task.completed;
+      });
+    }
   }
+  // mounted() {
+  //   alert('ready');
+  // }
 });
 
 /***/ }),

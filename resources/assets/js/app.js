@@ -17,10 +17,103 @@ window.Vue = require('vue');
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
+Vue.component('tabs', {
+  template: `
+  <div>
+    <hr> <!-- subnav -->
+      <ul class="nav justify-content-center nav-fill">
+        <li v-for="tab in tabs" class="nav-item" :class=" { 'is-Active': tab.isActive }">
+          <h4><a :href="tab.href" @click="selectTab(tab)">{{ tab.name }}</a></h4>
+        </li>
+      </ul>
+
+    <hr> <!-- end subnav -->
+
+    <div class="tabs-details">
+      <slot></slot>
+    </div>
+  </div>
+  `,
+  data() {
+    return {tabs: [] };
+  },
+  created() {
+    this.tabs = this.$children;
+  },
+  methods: {
+    selectTab(selectedTab) {
+      this.tabs.forEach(tab => {
+        tab.isActive = (tab.name == selectedTab.name)
+      });
+    }
+  }
+});
+
+Vue.component('tab', {
+  template: `
+    <div v-show="isActive"><slot></slot></div>
+  `,
+  props: {
+    name: { required: true},
+    selected: { default: false }
+  },
+  computed: {
+    href() {
+      return '#' + this.name.toLowerCase().replace(/ /g, "-");
+    }
+  },
+  data() {
+    return {
+      isActive: false
+    };
+  },
+  mounted() {
+    this.isActive = this.selected;
+  }
+});
+
+Vue.component('card', {
+  props: ['title', 'body'],
+  data() {
+    return {
+      isVisible: true
+    }
+  },
+  template: `
+  <div class="card" style="width: 18rem;" v-if="isVisible">
+    <img class="card-img-top" src="..." alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">{{ title }}</h5>
+      <button @click="hideModal">x</button>
+      <p class="card-text">{{ body }}</p>
+      <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+  </div>
+  `,
+  methods: {
+    hideModal() {
+      this.isVisible = false;
+    }
+  }
+});
+
 app = new Vue({
     el: '#app',
     data: {
-      isActive: true,
-      hasError: false
+      message: 'Hello World',
+      names: ['Joe', 'Mary', 'Jane'],
+      tasks: [
+        { description: 'Go to the store', completed: true},
+        { description: 'Finish project', completed: true},
+        { description: 'Eat', completed: false},
+      ]
+    },
+    computed: {
+      incompleteTasks() {
+        return this.tasks.filter(task => !task.completed);
+      }
     }
+    // mounted() {
+    //   alert('ready');
+    // }
 });
