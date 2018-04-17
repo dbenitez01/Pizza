@@ -10401,6 +10401,6 @@ a.text-dark:focus {
 }
 
 .is-Active {
-  background: red;
+  border-bottom: 1px solid #0062cc;
 }
 

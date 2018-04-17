@@ -6,6 +6,9 @@
  */
 
 require('./bootstrap');
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
 
 window.Vue = require('vue');
 
@@ -21,9 +24,9 @@ Vue.component('tabs', {
   template: `
   <div>
     <hr> <!-- subnav -->
-      <ul class="nav justify-content-center nav-fill">
+      <ul class="nav nav-pills justify-content-center nav-fill">
         <li v-for="tab in tabs" class="nav-item" :class=" { 'is-Active': tab.isActive }">
-          <h4><a :href="tab.href" @click="selectTab(tab)">{{ tab.name }}</a></h4>
+          <h4><a :href="tab.href" @click="selectTab(tab)" class="nav-link">{{ tab.name }}</a></h4>
         </li>
       </ul>
 
@@ -45,13 +48,16 @@ Vue.component('tabs', {
       this.tabs.forEach(tab => {
         tab.isActive = (tab.name == selectedTab.name)
       });
+      $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+      });
     }
   }
 });
 
 Vue.component('tab', {
   template: `
-    <div v-show="isActive"><slot></slot></div>
+    <div v-if="isActive"><slot></slot></div>
   `,
   props: {
     name: { required: true},

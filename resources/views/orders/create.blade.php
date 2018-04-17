@@ -26,7 +26,30 @@
 
     <tabs>
       <tab name="Pizzas" :selected="true">
-        <h1>Pizzas!!!!</h1>
+        <div class="row">
+          @foreach ($pizzas as $pizza)
+            <div class="col-md-6">
+              <h1 class="d-inline">{{ $pizza->type }}</h1>
+              <i class="fa fa-info-circle float-right" data-toggle="tooltip" data-placement="bottom" title="{{ $pizza->description }}"></i>
+              <div class="form-group">
+                <label for="size">Size</label>
+                <select class="form-control" name="size">
+                  <option value="S">Small</option>
+                  <option value="M">Medium</option>
+                  <option value="L">Large</option>
+                </select>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-2">
+                  <input type="number" name="quantity" value="1" class="form-control">
+                </div>
+                <div class="form-group col-md-10">
+                  <button type="button" name="button" class="btn btn-primary"><i class="fa fa-plus"></i> Add to Order</button>
+                </div>
+              </div>
+            </div>
+          @endforeach
+        </div>
       </tab>
       <tab name="Entrees">
         <h1>Entrees!</h1>
@@ -41,41 +64,7 @@
         <h1>Desserts</h1>
       </tab>
     </tabs>
-
-    <hr> <!-- subnav -->
-      <ul class="nav justify-content-center nav-fill">
-        <li class="nav-item"><h4><a class="nav-link active" href="#">Pizza</a></h4></li>
-        <li class="nav-item"><h4><a class="nav-link" href="#">Entrees</a></h4></li>
-        <li class="nav-item"><h4><a class="nav-link" href="#">Appetizers</a></h4></li>
-        <li class="nav-item"><h4><a class="nav-link" href="#">Drinks</a></h4></li>
-        <li class="nav-item"><h4><a class="nav-link" href="#">Desserts</a></h4></li>
-      </ul>
-
-    <hr> <!-- end subnav -->
-    <div class="row">
-      @foreach ($pizzas as $pizza)
-        <div class="col-md-6">
-          <h1 class="d-inline">{{ $pizza->type }}</h1>
-          <i class="fa fa-info-circle float-right" data-toggle="tooltip" data-placement="bottom" title="{{ $pizza->description }}"></i>
-          <div class="form-group">
-            <label for="size">Size</label>
-            <select class="form-control" name="size">
-              <option value="S">Small</option>
-              <option value="M">Medium</option>
-              <option value="L">Large</option>
-            </select>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-2">
-              <input type="number" name="quantity" value="1" class="form-control">
-            </div>
-            <div class="form-group col-md-10">
-              <button type="button" name="button" class="btn btn-primary"><i class="fa fa-plus"></i> Add to Order</button>
-            </div>
-          </div>
-        </div>
-      @endforeach
-    </div>
+{{--
     <h1>All tasks</h1>
     <ul>
       <li v-for="task in tasks" v-text="task.description"></li>
@@ -90,7 +79,7 @@
 
 
     <card title="Card Title" body="Some quick example text to build on the card title and make up the bulk of the card's content."></card>
-    <card title="Blah blah" body="Some quick example text to build on the card title and make up the bulk of the card's content."></card>
+    <card title="Blah blah" body="Some quick example text to build on the card title and make up the bulk of the card's content."></card> --}}
 
 
 

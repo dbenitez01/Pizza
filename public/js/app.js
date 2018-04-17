@@ -13882,6 +13882,9 @@ module.exports = __webpack_require__(43);
  */
 
 __webpack_require__(13);
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip();
+});
 
 window.Vue = __webpack_require__(36);
 
@@ -13894,7 +13897,7 @@ window.Vue = __webpack_require__(36);
 Vue.component('example-component', __webpack_require__(39));
 
 Vue.component('tabs', {
-  template: '\n  <div>\n    <hr> <!-- subnav -->\n      <ul class="nav justify-content-center nav-fill">\n        <li v-for="tab in tabs" class="nav-item" :class=" { \'is-Active\': tab.isActive }">\n          <h4><a :href="tab.href" @click="selectTab(tab)">{{ tab.name }}</a></h4>\n        </li>\n      </ul>\n\n    <hr> <!-- end subnav -->\n\n    <div class="tabs-details">\n      <slot></slot>\n    </div>\n  </div>\n  ',
+  template: '\n  <div>\n    <hr> <!-- subnav -->\n      <ul class="nav nav-pills justify-content-center nav-fill">\n        <li v-for="tab in tabs" class="nav-item" :class=" { \'is-Active\': tab.isActive }">\n          <h4><a :href="tab.href" @click="selectTab(tab)" class="nav-link">{{ tab.name }}</a></h4>\n        </li>\n      </ul>\n\n    <hr> <!-- end subnav -->\n\n    <div class="tabs-details">\n      <slot></slot>\n    </div>\n  </div>\n  ',
   data: function data() {
     return { tabs: [] };
   },
@@ -13907,12 +13910,15 @@ Vue.component('tabs', {
       this.tabs.forEach(function (tab) {
         tab.isActive = tab.name == selectedTab.name;
       });
+      $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+      });
     }
   }
 });
 
 Vue.component('tab', {
-  template: '\n    <div v-show="isActive"><slot></slot></div>\n  ',
+  template: '\n    <div v-if="isActive"><slot></slot></div>\n  ',
   props: {
     name: { required: true },
     selected: { default: false }
