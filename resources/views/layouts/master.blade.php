@@ -54,7 +54,7 @@
                                     <a class="dropdown-item" href="{{ route('drinks.index') }}">Drinks</a>
                                     <a class="dropdown-item" href="{{ route('desserts.index') }}">Desserts</a>
                                     <a class="dropdown-item" href="{{ route('toppings.index') }}">Toppings</a>
-                                    <a class="dropdown-item" href="#">Pizzas</a>
+                                    <a class="dropdown-item" href="{{ route('pizzas.index') }}">Pizzas</a>
                             </div>
                           @endif
                         @endauth
@@ -92,7 +92,7 @@
 
 
             @yield('content')
-  
+
             <div class="container">
               <hr class="featurette-divider">
               <!-- FOOTER -->

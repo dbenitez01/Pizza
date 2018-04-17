@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pizza extends Model
 {
-  public function item() {
+  public function type() {
     return $this->belongsTo(PizzaTypes::class, 'pizzaTypeId', 'id');
   }
 }

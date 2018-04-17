@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Order;
+use App\PizzaTypes;
 
 class OrderController extends Controller
 {
@@ -23,6 +24,8 @@ class OrderController extends Controller
   }
 
   public function create() {
-    return view ('orders.create');
+
+    $pizzas = PizzaTypes::all();
+    return view ('orders.create', compact('pizzas'));
   }
 }
