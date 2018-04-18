@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use App\Order;
 use App\PizzaTypes;
 use App\AppetizerItem;
+use App\EntreeItem;
+use App\DessertItem;
+use App\DrinkItem;
+use App\ToppingItem;
 
 class OrderController extends Controller
 {
@@ -28,9 +32,13 @@ class OrderController extends Controller
 
     $pizzas = PizzaTypes::all();
     $apps = AppetizerItem::all();
+    $entrees = EntreeItem::all();
+    $drinks = DrinkItem::all();
+    $desserts = DessertItem::all();
+    $toppings = ToppingItem::all();
 
     $cart = session('cart');
-    return view ('orders.create', compact('pizzas', 'apps', 'cart'));
+    return view ('orders.create', compact('pizzas', 'apps','entrees','drinks','desserts','toppings', 'cart'));
   }
   public function store() {
     return ['message' => 'You sent a post request!'];

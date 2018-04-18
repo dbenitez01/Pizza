@@ -33,12 +33,15 @@
         </div>
       </tab>
       <tab name="Entrees">
-        <h1>Entrees!</h1>
+        @foreach ($entrees as $entree)
+          <menu-item name="{{ $entree->name }}" price="{{ $entree->price }}" description="{{ $entree->description }}"></menu-item>
+        @endforeach
       </tab>
       <tab name="Appetizers">
         <div class="row">
           @foreach ($apps as $app)
-            <div class="col-md-6">
+            <menu-item name="{{ $app->name }}" price="{{ $app->price }}" description="{{ $app->description }}"></menu-item>
+            {{-- <div class="col-md-6">
               <h1 class="d-inline">{{ $app->name }}</h1>
               <i class="fa fa-info-circle float-right" data-toggle="tooltip" data-placement="bottom" title="{{ $app->description }}"></i>
               <h3>${{ number_format($app->price, 2) }}</h3>
@@ -58,18 +61,22 @@
                   <button type="button" name="button" class="btn btn-primary"><i class="fa fa-plus"></i> Add to Order</button>
                 </div>
               </div>
-            </div>
+            </div> --}}
           @endforeach
         </div>
       </tab>
       <tab name="Drinks">
-        <h1>Drinks...</h1>
+        @foreach ($drinks as $drink)
+          <menu-item name="{{ $drink->brand }}" price="{{ $drink->price }}" description="{{ $drink->description }}"></menu-item>
+        @endforeach
       </tab>
       <tab name="Desserts">
-        <h1>Desserts</h1>
+        @foreach ($desserts as $dessert)
+          <menu-item name="{{ $dessert->name }}" price="{{ $dessert->price }}" description="{{ $dessert->description }}"></menu-item>
+        @endforeach
       </tab>
     </tabs>
-    
+
 {{--
     <h1>All tasks</h1>
     <ul>
