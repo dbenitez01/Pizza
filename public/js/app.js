@@ -13913,13 +13913,30 @@ var Errors = function () {
   return Errors;
 }();
 
-var Cart = function Cart() {
+var Cart = function Cart(data) {
   _classCallCheck(this, Cart);
 
-  this.data = {};
+  this.data = data;
+
+  for (var field in data) {
+    this[field] = data[field];
+  }
 };
 
 window.Vue = __webpack_require__(36);
+
+Vue.component('cart-items', {
+  template: '\n    <span>{{ number }}</span>\n  ',
+  data: function data() {
+    return {
+      text: ''
+    };
+  },
+
+  props: {
+    number: { required: true }
+  }
+});
 
 Vue.component('tabs', {
   template: '\n  <div>\n    <hr> <!-- subnav -->\n      <ul class="nav nav-pills justify-content-center nav-fill">\n        <li v-for="tab in tabs" class="nav-item" :class=" { \'is-Active\': tab.isActive }">\n          <h4><a :href="tab.href" @click="selectTab(tab)" class="nav-link">{{ tab.name }}</a></h4>\n        </li>\n      </ul>\n\n    <hr> <!-- end subnav -->\n\n    <div class="tabs-details">\n      <slot></slot>\n    </div>\n  </div>\n  ',
@@ -13978,16 +13995,27 @@ Vue.component('menu-item', {
     };
   },
 
+  computed: {
+    getItem: function getItem() {
+      return { name: this.name,
+        price: this.price,
+        description: this.description,
+        size: this.size,
+        quantity: this.quantity };
+    }
+  },
   methods: {
     onSubmit: function onSubmit() {
       var _this = this;
 
-      axios.post('/orders', this).then(this.onSuccess).catch(function (error) {
+      axios.post('/orders', this.getItem).then(this.onSuccess).catch(function (error) {
         return _this.errors = error.response.data;
       });
     },
     onSuccess: function onSuccess(response) {
-      alert(response.data.message);
+      alert(response.data.cart);
+      app.cartItems = response.data.cart.length;
+      location.reload();
     }
   }
 });
@@ -13995,7 +14023,13 @@ Vue.component('menu-item', {
 app = new Vue({
   el: '#app',
   data: {
-    errors: new Errors()
+    errors: new Errors(),
+    cart: new Cart()
+  },
+  methods: {
+    addToCart: function addToCart() {
+      alert('succes');
+    }
   }
 });
 

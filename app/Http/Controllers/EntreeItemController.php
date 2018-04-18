@@ -14,8 +14,9 @@ class EntreeItemController extends Controller
      */
     public function index()
     {
+        $key = session('key');
         $entrees = EntreeItem::all();
-        return view ('entreeitems.index', compact('entrees'));
+        return view ('entreeitems.index', compact('entrees', 'key'));
     }
 
     /**

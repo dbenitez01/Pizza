@@ -27,11 +27,30 @@ class Errors {
 }
 
 class Cart {
-  constructor() {
-    this.data = {};
+  constructor(data) {
+    this.data = data;
+
+    for(let field in data) {
+      this[field] = data[field];
+    }
   }
 }
 window.Vue = require('vue');
+
+
+Vue.component('cart-items', {
+  template: `
+    <span>{{ number }}</span>
+  `,
+  data() {
+    return {
+      text: ''
+    };
+  },
+  props: {
+    number: { required: true }
+  },
+});
 
 Vue.component('tabs', {
   template: `
@@ -127,15 +146,27 @@ Vue.component('menu-item', {
       errors: {}
     }
   },
+  computed: {
+    getItem() {
+      return { name: this.name,
+              price: this.price,
+              description: this.description,
+              size: this.size,
+              quantity: this.quantity};
+    }
+  },
   methods: {
     onSubmit() {
-      axios.post('/orders', this)
+      axios.post('/orders', this.getItem)
         .then(this.onSuccess)
         .catch(error => this.errors = error.response.data);
+
     },
 
     onSuccess(response) {
-      alert(response.data.message);
+      alert(response.data.cart);
+      app.cartItems = response.data.cart.length;
+      location.reload();
     }
   }
 });
@@ -144,6 +175,12 @@ Vue.component('menu-item', {
 app = new Vue({
     el: '#app',
     data: {
-      errors: new Errors()
+      errors: new Errors(),
+      cart: new Cart(),
+    },
+    methods: {
+      addToCart() {
+        alert('succes');
+      }
     }
 });

@@ -23,6 +23,12 @@ class HomeController extends Controller
      */
     public function index()
     {
+        session(['cart' => array()]);
         return view('home');
+    }
+    public function addToCart(Request $request) {
+        $order = request(['type', 'name','price', 'quantity', 'size']);
+        $request->session()->push('cart', $order);
+        return $request->session()->all();
     }
 }

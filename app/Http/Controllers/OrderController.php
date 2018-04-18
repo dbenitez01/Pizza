@@ -28,7 +28,9 @@ class OrderController extends Controller
 
     $pizzas = PizzaTypes::all();
     $apps = AppetizerItem::all();
-    return view ('orders.create', compact('pizzas', 'apps'));
+
+    $cart = session('cart');
+    return view ('orders.create', compact('pizzas', 'apps', 'cart'));
   }
   public function store() {
     return ['message' => 'You sent a post request!'];
