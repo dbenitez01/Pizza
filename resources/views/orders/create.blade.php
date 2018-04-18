@@ -28,7 +28,7 @@
       <tab name="Pizzas" :selected="true">
         <div class="row">
           @foreach ($pizzas as $pizza)
-            <menu-item name="{{ $pizza->type }}" price="{{ $pizza->price }}"></menu-item>
+            <menu-item name="{{ $pizza->type }}" price="{{ $pizza->price }}" description="{{ $pizza->description }}"></menu-item>
           @endforeach
         </div>
       </tab>

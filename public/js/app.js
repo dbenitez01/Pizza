@@ -13931,10 +13931,11 @@ Vue.component('tab', {
 });
 
 Vue.component('menu-item', {
-  template: '\n    <div class="col-md-6">\n      <h1 class="d-inline">{{ name }}</h1>\n      <i class="fa fa-info-circle float-right" data-toggle="tooltip" data-placement="bottom" title="the"></i>\n      <h3>{{ price }} </h3>\n      <div class="form-group">\n        <label for="size">Size</label>\n        <select class="form-control" name="size">\n          <option value="S">Small</option>\n          <option value="M">Medium</option>\n          <option value="L">Large</option>\n        </select>\n      </div>\n      <div class="form-row">\n        <div class="form-group col-md-2">\n          <input type="number" name="quantity" value="1" class="form-control" min="1" max="10" v-model="quantity">\n        </div>\n        <div class="form-group col-md-10">\n          <button type="button" name="button" class="btn btn-primary"><i class="fa fa-plus"></i> Add to Order</button>\n        </div>\n      </div>\n    </div>\n  ',
+  template: '\n    <div class="col-md-6">\n      <h1 class="d-inline">{{ name }}</h1>\n      <i class="fa fa-info-circle float-right" data-toggle="tooltip" data-placement="bottom" :title="description"></i>\n      <h3>{{ price }} </h3>\n      <div class="form-group">\n        <label for="size">Size</label>\n        <select class="form-control" name="size">\n          <option value="S">Small</option>\n          <option value="M">Medium</option>\n          <option value="L">Large</option>\n        </select>\n      </div>\n      <div class="form-row">\n        <div class="form-group col-md-2">\n          <input type="number" name="quantity" value="1" class="form-control" min="1" max="10" v-model="quantity">\n        </div>\n        <div class="form-group col-md-10">\n          <button type="button" name="button" class="btn btn-primary"><i class="fa fa-plus"></i> Add to Order</button>\n        </div>\n      </div>\n    </div>\n  ',
   props: {
     name: { required: true },
-    price: { required: true }
+    price: { required: true },
+    description: { required: true }
   },
   data: function data() {
     return {

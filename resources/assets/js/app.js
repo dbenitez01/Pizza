@@ -74,7 +74,7 @@ Vue.component('menu-item', {
   template: `
     <div class="col-md-6">
       <h1 class="d-inline">{{ name }}</h1>
-      <i class="fa fa-info-circle float-right" data-toggle="tooltip" data-placement="bottom" title="the"></i>
+      <i class="fa fa-info-circle float-right" data-toggle="tooltip" data-placement="bottom" :title="description"></i>
       <h3>{{ price }} </h3>
       <div class="form-group">
         <label for="size">Size</label>
@@ -96,7 +96,8 @@ Vue.component('menu-item', {
   `,
   props: {
     name: { required: true },
-    price: { required: true}
+    price: { required: true},
+    description: {required: true}
   },
   data() {
     return {
