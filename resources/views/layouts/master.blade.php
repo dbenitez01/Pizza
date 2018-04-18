@@ -92,7 +92,7 @@
                                </a>
 
                               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a href="#" class="dropdown-item">View Cart</a>
+                                <a href="{{ route('cart.index') }}" class="dropdown-item">View Cart</a>
 
                               </div>
 

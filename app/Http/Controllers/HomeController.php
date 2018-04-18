@@ -31,4 +31,8 @@ class HomeController extends Controller
         $request->session()->push('cart', $order);
         return $request->session()->all();
     }
+    public function cart(Request $request) {
+      $data = $request->session()->get('cart');
+      return view('cart.index', compact('data'));
+    }
 }
