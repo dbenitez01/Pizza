@@ -26,25 +26,22 @@ class Errors {
   }
 }
 
-class Cart {
-  constructor(data) {
-    this.data = data;
-
-    for(let field in data) {
-      this[field] = data[field];
-    }
-  }
-}
 window.Vue = require('vue');
 
 
 Vue.component('cart-items', {
   template: `
-    <span>{{ number }}</span>
+    <span>{{ cartItems }}</span>
   `,
+  mounted: function () {
+     this.$root.$on('applied', function() { // here you need to use the arrow function
+       console.log(this);
+       this.$children[0].cartItems = parseInt(this.$children[0].cartItems) + 1;
+     })
+   },
   data() {
     return {
-      text: ''
+      cartItems: this.number
     };
   },
   props: {
@@ -137,7 +134,8 @@ Vue.component('menu-item', {
   props: {
     name: { required: true },
     price: { required: true},
-    description: {required: true}
+    description: {required: true},
+    propid: { required: true}
   },
   data() {
     return {
@@ -148,9 +146,8 @@ Vue.component('menu-item', {
   },
   computed: {
     getItem() {
-      return { name: this.name,
+      return { id: this.propid,
               price: this.price,
-              description: this.description,
               size: this.size,
               quantity: this.quantity};
     }
@@ -165,8 +162,8 @@ Vue.component('menu-item', {
 
     onSuccess(response) {
       alert(response.data.cart);
-      app.cartItems = response.data.cart.length;
-      location.reload();
+      app.$emit('applied');
+      // location.reload();
     }
   }
 });
@@ -176,11 +173,5 @@ app = new Vue({
     el: '#app',
     data: {
       errors: new Errors(),
-      cart: new Cart(),
     },
-    methods: {
-      addToCart() {
-        alert('succes');
-      }
-    }
 });

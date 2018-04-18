@@ -27,7 +27,7 @@ class HomeController extends Controller
         return view('home');
     }
     public function addToCart(Request $request) {
-        $order = request(['type', 'name','price', 'quantity', 'size']);
+        $order = request(['id','price', 'quantity', 'size']);
         $request->session()->push('cart', $order);
         return $request->session()->all();
     }

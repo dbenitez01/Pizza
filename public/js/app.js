@@ -13913,23 +13913,20 @@ var Errors = function () {
   return Errors;
 }();
 
-var Cart = function Cart(data) {
-  _classCallCheck(this, Cart);
-
-  this.data = data;
-
-  for (var field in data) {
-    this[field] = data[field];
-  }
-};
-
 window.Vue = __webpack_require__(36);
 
 Vue.component('cart-items', {
-  template: '\n    <span>{{ number }}</span>\n  ',
+  template: '\n    <span>{{ cartItems }}</span>\n  ',
+  mounted: function mounted() {
+    this.$root.$on('applied', function () {
+      // here you need to use the arrow function
+      console.log(this);
+      this.$children[0].cartItems = parseInt(this.$children[0].cartItems) + 1;
+    });
+  },
   data: function data() {
     return {
-      text: ''
+      cartItems: this.number
     };
   },
 
@@ -13985,7 +13982,8 @@ Vue.component('menu-item', {
   props: {
     name: { required: true },
     price: { required: true },
-    description: { required: true }
+    description: { required: true },
+    propid: { required: true }
   },
   data: function data() {
     return {
@@ -13997,9 +13995,8 @@ Vue.component('menu-item', {
 
   computed: {
     getItem: function getItem() {
-      return { name: this.name,
+      return { id: this.propid,
         price: this.price,
-        description: this.description,
         size: this.size,
         quantity: this.quantity };
     }
@@ -14014,8 +14011,8 @@ Vue.component('menu-item', {
     },
     onSuccess: function onSuccess(response) {
       alert(response.data.cart);
-      app.cartItems = response.data.cart.length;
-      location.reload();
+      app.$emit('applied');
+      // location.reload();
     }
   }
 });
@@ -14023,13 +14020,7 @@ Vue.component('menu-item', {
 app = new Vue({
   el: '#app',
   data: {
-    errors: new Errors(),
-    cart: new Cart()
-  },
-  methods: {
-    addToCart: function addToCart() {
-      alert('succes');
-    }
+    errors: new Errors()
   }
 });
 
