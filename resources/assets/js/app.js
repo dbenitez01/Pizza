@@ -10,6 +10,27 @@ $(function () {
   $('[data-toggle="tooltip"]').tooltip()
 })
 
+class Errors {
+
+  constructor() {
+    this.errors = {};
+  }
+
+  get(field) {
+    if(this.errors[field]) {
+      return this.errors[field][0];
+    }
+  }
+  record(errors) {
+    this.errors = errors;
+  }
+}
+
+class Cart {
+  constructor() {
+    this.data = {};
+  }
+}
 window.Vue = require('vue');
 
 Vue.component('tabs', {
@@ -75,10 +96,10 @@ Vue.component('menu-item', {
     <div class="col-md-6">
       <h1 class="d-inline">{{ name }}</h1>
       <i class="fa fa-info-circle float-right" data-toggle="tooltip" data-placement="bottom" :title="description"></i>
-      <h3>{{ price }} </h3>
+      <h3>\${{ price }} </h3>
       <div class="form-group">
         <label for="size">Size</label>
-        <select class="form-control" name="size">
+        <select class="form-control" name="size" v-model="size">
           <option value="S">Small</option>
           <option value="M">Medium</option>
           <option value="L">Large</option>
@@ -89,7 +110,7 @@ Vue.component('menu-item', {
           <input type="number" name="quantity" value="1" class="form-control" min="1" max="10" v-model="quantity">
         </div>
         <div class="form-group col-md-10">
-          <button type="button" name="button" class="btn btn-primary"><i class="fa fa-plus"></i> Add to Order</button>
+          <button type="button" name="button" class="btn btn-primary" @click.prevent="onSubmit"><i class="fa fa-plus"></i> Add to Order</button>
         </div>
       </div>
     </div>
@@ -101,8 +122,20 @@ Vue.component('menu-item', {
   },
   data() {
     return {
-      size: '',
+      size: 'S',
       quantity: 1,
+      errors: {}
+    }
+  },
+  methods: {
+    onSubmit() {
+      axios.post('/orders', this)
+        .then(this.onSuccess)
+        .catch(error => this.errors = error.response.data);
+    },
+
+    onSuccess(response) {
+      alert(response.data.message);
     }
   }
 });
@@ -111,6 +144,6 @@ Vue.component('menu-item', {
 app = new Vue({
     el: '#app',
     data: {
-      quantity: 1,
+      errors: new Errors()
     }
 });

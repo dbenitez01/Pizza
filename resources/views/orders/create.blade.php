@@ -23,7 +23,7 @@
       </div> <!-- End icon row -->
     </div>
     {{-- TODO: List locaions when clicking one of the buttons --}}
-
+    <div class="danger" v-text="errors.get('name')"></div>
     <tabs>
       <tab name="Pizzas" :selected="true">
         <div class="row">

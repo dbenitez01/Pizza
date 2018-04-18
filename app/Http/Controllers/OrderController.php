@@ -30,4 +30,7 @@ class OrderController extends Controller
     $apps = AppetizerItem::all();
     return view ('orders.create', compact('pizzas', 'apps'));
   }
+  public function store() {
+    return ['message' => 'You sent a post request!'];
+  }
 }

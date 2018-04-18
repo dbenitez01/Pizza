@@ -13867,13 +13867,16 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(12);
-module.exports = __webpack_require__(43);
+module.exports = __webpack_require__(39);
 
 
 /***/ }),
 /* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -13885,6 +13888,36 @@ __webpack_require__(13);
 $(function () {
   $('[data-toggle="tooltip"]').tooltip();
 });
+
+var Errors = function () {
+  function Errors() {
+    _classCallCheck(this, Errors);
+
+    this.errors = {};
+  }
+
+  _createClass(Errors, [{
+    key: 'get',
+    value: function get(field) {
+      if (this.errors[field]) {
+        return this.errors[field][0];
+      }
+    }
+  }, {
+    key: 'record',
+    value: function record(errors) {
+      this.errors = errors;
+    }
+  }]);
+
+  return Errors;
+}();
+
+var Cart = function Cart() {
+  _classCallCheck(this, Cart);
+
+  this.data = {};
+};
 
 window.Vue = __webpack_require__(36);
 
@@ -13931,7 +13964,7 @@ Vue.component('tab', {
 });
 
 Vue.component('menu-item', {
-  template: '\n    <div class="col-md-6">\n      <h1 class="d-inline">{{ name }}</h1>\n      <i class="fa fa-info-circle float-right" data-toggle="tooltip" data-placement="bottom" :title="description"></i>\n      <h3>{{ price }} </h3>\n      <div class="form-group">\n        <label for="size">Size</label>\n        <select class="form-control" name="size">\n          <option value="S">Small</option>\n          <option value="M">Medium</option>\n          <option value="L">Large</option>\n        </select>\n      </div>\n      <div class="form-row">\n        <div class="form-group col-md-2">\n          <input type="number" name="quantity" value="1" class="form-control" min="1" max="10" v-model="quantity">\n        </div>\n        <div class="form-group col-md-10">\n          <button type="button" name="button" class="btn btn-primary"><i class="fa fa-plus"></i> Add to Order</button>\n        </div>\n      </div>\n    </div>\n  ',
+  template: '\n    <div class="col-md-6">\n      <h1 class="d-inline">{{ name }}</h1>\n      <i class="fa fa-info-circle float-right" data-toggle="tooltip" data-placement="bottom" :title="description"></i>\n      <h3>${{ price }} </h3>\n      <div class="form-group">\n        <label for="size">Size</label>\n        <select class="form-control" name="size" v-model="size">\n          <option value="S">Small</option>\n          <option value="M">Medium</option>\n          <option value="L">Large</option>\n        </select>\n      </div>\n      <div class="form-row">\n        <div class="form-group col-md-2">\n          <input type="number" name="quantity" value="1" class="form-control" min="1" max="10" v-model="quantity">\n        </div>\n        <div class="form-group col-md-10">\n          <button type="button" name="button" class="btn btn-primary" @click.prevent="onSubmit"><i class="fa fa-plus"></i> Add to Order</button>\n        </div>\n      </div>\n    </div>\n  ',
   props: {
     name: { required: true },
     price: { required: true },
@@ -13939,16 +13972,30 @@ Vue.component('menu-item', {
   },
   data: function data() {
     return {
-      size: '',
-      quantity: 1
+      size: 'S',
+      quantity: 1,
+      errors: {}
     };
+  },
+
+  methods: {
+    onSubmit: function onSubmit() {
+      var _this = this;
+
+      axios.post('/orders', this).then(this.onSuccess).catch(function (error) {
+        return _this.errors = error.response.data;
+      });
+    },
+    onSuccess: function onSuccess(response) {
+      alert(response.data.message);
+    }
   }
 });
 
 app = new Vue({
   el: '#app',
   data: {
-    quantity: 1
+    errors: new Errors()
   }
 });
 
@@ -47192,11 +47239,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(6)))
 
 /***/ }),
-/* 39 */,
-/* 40 */,
-/* 41 */,
-/* 42 */,
-/* 43 */
+/* 39 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
