@@ -32,7 +32,7 @@ class HomeController extends Controller
         return $request->session()->all();
     }
     public function cart(Request $request) {
-      $data = $request->session()->get('cart');
-      return view('cart.index', compact('data'));
+      $cart = $request->session()->get('cart');
+      return view('cart.index', compact('cart'));
     }
 }
