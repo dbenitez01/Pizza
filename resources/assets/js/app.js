@@ -12,14 +12,6 @@ $(function () {
 
 window.Vue = require('vue');
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
-
 Vue.component('tabs', {
   template: `
   <div>
@@ -78,48 +70,46 @@ Vue.component('tab', {
   }
 });
 
-Vue.component('card', {
-  props: ['title', 'body'],
+Vue.component('menu-item', {
+  template: `
+    <div class="col-md-6">
+      <h1 class="d-inline">{{ name }}</h1>
+      <i class="fa fa-info-circle float-right" data-toggle="tooltip" data-placement="bottom" title="the"></i>
+      <h3>{{ price }} </h3>
+      <div class="form-group">
+        <label for="size">Size</label>
+        <select class="form-control" name="size">
+          <option value="S">Small</option>
+          <option value="M">Medium</option>
+          <option value="L">Large</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-2">
+          <input type="number" name="quantity" value="1" class="form-control" min="1" max="10" v-model="quantity">
+        </div>
+        <div class="form-group col-md-10">
+          <button type="button" name="button" class="btn btn-primary"><i class="fa fa-plus"></i> Add to Order</button>
+        </div>
+      </div>
+    </div>
+  `,
+  props: {
+    name: { required: true },
+    price: { required: true}
+  },
   data() {
     return {
-      isVisible: true
-    }
-  },
-  template: `
-  <div class="card" style="width: 18rem;" v-if="isVisible">
-    <img class="card-img-top" src="..." alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title">{{ title }}</h5>
-      <button @click="hideModal">x</button>
-      <p class="card-text">{{ body }}</p>
-      <a href="#" class="btn btn-primary">Go somewhere</a>
-    </div>
-  </div>
-  `,
-  methods: {
-    hideModal() {
-      this.isVisible = false;
+      size: '',
+      quantity: 1,
     }
   }
 });
 
+
 app = new Vue({
     el: '#app',
     data: {
-      message: 'Hello World',
-      names: ['Joe', 'Mary', 'Jane'],
-      tasks: [
-        { description: 'Go to the store', completed: true},
-        { description: 'Finish project', completed: true},
-        { description: 'Eat', completed: false},
-      ]
-    },
-    computed: {
-      incompleteTasks() {
-        return this.tasks.filter(task => !task.completed);
-      }
+      quantity: 1,
     }
-    // mounted() {
-    //   alert('ready');
-    // }
 });
