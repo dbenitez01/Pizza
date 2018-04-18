@@ -31,6 +31,7 @@
             <div class="col-md-6">
               <h1 class="d-inline">{{ $pizza->type }}</h1>
               <i class="fa fa-info-circle float-right" data-toggle="tooltip" data-placement="bottom" title="{{ $pizza->description }}"></i>
+              <h3>${{ number_format($pizza->price, 2) }}</h3>
               <div class="form-group">
                 <label for="size">Size</label>
                 <select class="form-control" name="size">
@@ -60,6 +61,7 @@
             <div class="col-md-6">
               <h1 class="d-inline">{{ $app->name }}</h1>
               <i class="fa fa-info-circle float-right" data-toggle="tooltip" data-placement="bottom" title="{{ $app->description }}"></i>
+              <h3>${{ number_format($app->price, 2) }}</h3>
               <div class="form-group">
                 <label for="size">Size</label>
                 <select class="form-control" name="size">
