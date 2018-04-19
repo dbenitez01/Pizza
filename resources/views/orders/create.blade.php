@@ -56,27 +56,6 @@
       </tab>
     </tabs>
 
-{{--
-    <h1>All tasks</h1>
-    <ul>
-      <li v-for="task in tasks" v-text="task.description"></li>
-    </ul>
-
-    <h1>Incomplete tasks</h1>
-    <ul>
-      <li v-for="task in incompleteTasks" v-text="task.description"></li>
-    </ul>
-    <task-list></task-list>
-    <task>Go to the store</task>
-
-
-    <card title="Card Title" body="Some quick example text to build on the card title and make up the bulk of the card's content."></card>
-    <card title="Blah blah" body="Some quick example text to build on the card title and make up the bulk of the card's content."></card> --}}
-
-
-
-
-
     </form>
   </div>
 

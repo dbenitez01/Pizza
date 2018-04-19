@@ -7,15 +7,31 @@
     <div class="row">
       <a href="#">Add More Food</a>
     </div>
-    @foreach ($cart as $item)
-      <div class="row">
+    {{-- @foreach ($cart as $item)
+      {{-- <div class="row">
         {{ $item['id'] }}
         {{ $item['price'] }}
       </div>
+    @endforeach --}}
+    @foreach ($dbPizzas as $pizza)
+      {{ $pizza->type }}
     @endforeach
-
+    @foreach ($dbEntrees as $entree)
+      {{ $entree->name }}
+    @endforeach
+    @foreach ($dbApps as $app)
+      {{ $app->name }}
+    @endforeach
+    @foreach ($dbDesserts as $dessert)
+      {{ $dessert->name }}
+    @endforeach
+    @foreach ($dbDrinks as $drink)
+      {{ $drink->brand }}
+    @endforeach
     <pre>
-      <?php print_r($cart); ?>
+
+
+
     </pre>
   </div>
 
