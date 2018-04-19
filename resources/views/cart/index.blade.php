@@ -16,7 +16,7 @@
           </div>
           <div class="d-flex w-100 justify-content-between">
             <h5 class="mb-1">{{ $pizza['description']}}</h5>
-            <input type="number" name="quantity" value="{{ $pizza['quantity'] }}" class="form-control w-25" min="1" max="10">
+            <input type="number" name="quantity" value="{{ $pizza['quantity'] }}" class="form-control" min="1" max="10" style="width: 10%;">
           </div>
           <div class="d-flex float-right">
             <a href="#">Remove</a>
