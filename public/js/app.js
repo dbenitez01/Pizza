@@ -13983,7 +13983,8 @@ Vue.component('menu-item', {
     name: { required: true },
     price: { required: true },
     description: { required: true },
-    propid: { required: true }
+    propid: { required: true },
+    table: { required: true }
   },
   data: function data() {
     return {
@@ -13998,7 +13999,8 @@ Vue.component('menu-item', {
       return { id: this.propid,
         price: this.price,
         size: this.size,
-        quantity: this.quantity };
+        quantity: this.quantity,
+        table: this.table };
     }
   },
   methods: {

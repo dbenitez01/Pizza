@@ -28,30 +28,30 @@
       <tab name="Pizzas" :selected="true">
         <div class="row">
           @foreach ($pizzas as $pizza)
-            <menu-item name="{{ $pizza->type }}" price="{{ $pizza->price }}" description="{{ $pizza->description }}" propid="{{ $pizza->id }}"></menu-item>
+            <menu-item name="{{ $pizza->type }}" price="{{ $pizza->price }}" description="{{ $pizza->description }}" propid="{{ $pizza->id }}" table="pizza"></menu-item>
           @endforeach
         </div>
       </tab>
       <tab name="Entrees">
         @foreach ($entrees as $entree)
-          <menu-item name="{{ $entree->name }}" price="{{ $entree->price }}" description="{{ $entree->description }}"></menu-item>
+          <menu-item name="{{ $entree->name }}" price="{{ $entree->price }}" description="{{ $entree->description }}" propid="{{ $entree->id }}" table="entree"></menu-item>
         @endforeach
       </tab>
       <tab name="Appetizers">
         <div class="row">
           @foreach ($apps as $app)
-            <menu-item name="{{ $app->name }}" price="{{ $app->price }}" description="{{ $app->description }}"></menu-item>
+            <menu-item name="{{ $app->name }}" price="{{ $app->price }}" description="{{ $app->description }}" propid="{{ $app->id }}" table="app"></menu-item>
           @endforeach
         </div>
       </tab>
       <tab name="Drinks">
         @foreach ($drinks as $drink)
-          <menu-item name="{{ $drink->brand }}" price="{{ $drink->price }}" description="{{ $drink->description }}"></menu-item>
+          <menu-item name="{{ $drink->brand }}" price="{{ $drink->price }}" description="{{ $drink->description }}" propid="{{ $drink->id }}" table="drink"></menu-item>
         @endforeach
       </tab>
       <tab name="Desserts">
         @foreach ($desserts as $dessert)
-          <menu-item name="{{ $dessert->name }}" price="{{ $dessert->price }}" description="{{ $dessert->description }}"></menu-item>
+          <menu-item name="{{ $dessert->name }}" price="{{ $dessert->price }}" description="{{ $dessert->description }}" propid="{{ $dessert->id }}" table="dessert"></menu-item>
         @endforeach
       </tab>
     </tabs>
