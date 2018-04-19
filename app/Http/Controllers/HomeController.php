@@ -33,7 +33,7 @@ class HomeController extends Controller
         return view('home');
     }
     public function addToCart(Request $request) {
-        $order = request(['id','price', 'quantity', 'size', 'table']);
+        $order = request(['id','name','brand','type','description','price', 'quantity', 'size', 'table']);
         $request->session()->push('cart', $order);
         return $request->session()->all();
     }
@@ -75,33 +75,33 @@ class HomeController extends Controller
             break;
         }
       }
-      if(!empty($pizzaIds)) {
-        $dbPizzas = PizzaTypes::where('id', $pizzaIds)->get();
-      } else {
-        $dbPizzas = [];
-      }
-      if(!empty($entreeIds)) {
-        $dbEntrees = EntreeItem::where('id', $entreeIds)->get();
-      } else {
-        $dbEntrees = [];
-      }
-      if(!empty($dessertIds)) {
-        $dbDesserts = DessertItem::where('id', $dessertIds)->get();
-      } else {
-        $dbDesserts = [];
-      }
-      if(!empty($drinkIds)) {
-        $dbDrinks = DrinkItem::where('id', $drinkIds)->get();
-      } else {
-        $dbDrinks = [];
-      }
-      if(!empty($appetizerIds)) {
-        $dbApps = AppetizerItem::where('id', $appetizerIds)->get();
-      } else {
-        $dbApps = [];
-      }
+      // if(!empty($pizzaIds)) {
+      //   $dbPizzas = PizzaTypes::where('id', $pizzaIds)->get();
+      // } else {
+      //   $dbPizzas = [];
+      // }
+      // if(!empty($entreeIds)) {
+      //   $dbEntrees = EntreeItem::where('id', $entreeIds)->get();
+      // } else {
+      //   $dbEntrees = [];
+      // }
+      // if(!empty($dessertIds)) {
+      //   $dbDesserts = DessertItem::where('id', $dessertIds)->get();
+      // } else {
+      //   $dbDesserts = [];
+      // }
+      // if(!empty($drinkIds)) {
+      //   $dbDrinks = DrinkItem::where('id', $drinkIds)->get();
+      // } else {
+      //   $dbDrinks = [];
+      // }
+      // if(!empty($appetizerIds)) {
+      //   $dbApps = AppetizerItem::where('id', $appetizerIds)->get();
+      // } else {
+      //   $dbApps = [];
+      // }
 
-      return view('cart.index', compact('cart','pizzas','entrees','desserts','appetizers','drinks','dbPizzas',
-        'dbEntrees','dbDesserts','dbDrinks','dbApps'));
+      return view('cart.index', compact('cart','pizzas','entrees','desserts','appetizers','drinks'));
+      // return view('cart.index', compact('cart'));
     }
 }

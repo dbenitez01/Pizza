@@ -13997,6 +13997,8 @@ Vue.component('menu-item', {
   computed: {
     getItem: function getItem() {
       return { id: this.propid,
+        name: this.name,
+        description: this.description,
         price: this.price,
         size: this.size,
         quantity: this.quantity,
