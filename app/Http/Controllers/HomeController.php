@@ -50,29 +50,30 @@ class HomeController extends Controller
       $dessertIds = array();
       $appetizerIds = array();
       $drinkIds = array();
-
-      foreach ($cart as $item) {
-        switch ($item['table']) {
-          case 'pizza':
-            array_push($pizzas, $item);
-            array_push($pizzaIds, $item['id']);
-            break;
-          case 'entree':
-            array_push($entrees, $item);
-            array_push($entreeIds, $item['id']);
-            break;
-          case 'dessert':
-            array_push($desserts, $item);
-            array_push($dessertIds, $item['id']);
-            break;
-          case 'app':
-            array_push($appetizers, $item);
-            array_push($appetizerIds, $item['id']);
-            break;
-          case 'drink':
-            array_push($drinks, $item);
-            array_push($drinkIds, $item['id']);
-            break;
+      if(!empty($cart)) {
+        foreach ($cart as $item) {
+          switch ($item['table']) {
+            case 'pizza':
+              array_push($pizzas, $item);
+              array_push($pizzaIds, $item['id']);
+              break;
+            case 'entree':
+              array_push($entrees, $item);
+              array_push($entreeIds, $item['id']);
+              break;
+            case 'dessert':
+              array_push($desserts, $item);
+              array_push($dessertIds, $item['id']);
+              break;
+            case 'app':
+              array_push($appetizers, $item);
+              array_push($appetizerIds, $item['id']);
+              break;
+            case 'drink':
+              array_push($drinks, $item);
+              array_push($drinkIds, $item['id']);
+              break;
+          }
         }
       }
       // if(!empty($pizzaIds)) {

@@ -172,6 +172,57 @@ Vue.component('menu-item', {
   }
 });
 
+Vue.component('cart-item', {
+    template: `
+      <li class="list-group-item" v-if="visible">
+        <div class="d-flex w-100 justify-content-between">
+          <h2 class="mb-1">{{ getSize }} {{ name }}</h2>
+          <h3>\${{ price }}</h3>
+        </div>
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">{{ description }}</h5>
+          <input type="number" name="quantity" v-model="quantity" class="form-control" min="1" max="10" style="width: 10%;">
+        </div>
+        <div class="d-flex float-right">
+          <a href="#" @click="remove">Remove</a>
+        </div>
+      </li>
+    `,
+    data() {
+      return {
+        computedSize: '',
+        visible: true
+      };
+    },
+    props: {
+      name: { required: true },
+      description: { required: true },
+      size: { required: true },
+      price: { required: true },
+      quantity: { required: true },
+    },
+    computed: {
+      getSize() {
+        switch (this.size) {
+          case 'S':
+            this.computedSize = 'Small'
+            break;
+          case 'M':
+            this.computedSize = 'Medium'
+            break;
+          default:
+            this.computedSize = "Large"
+        }
+        return this.computedSize;
+      }
+    },
+    methods: {
+      remove() {
+        this.visible = false;
+      }
+    }
+});
+
 
 app = new Vue({
     el: '#app',
