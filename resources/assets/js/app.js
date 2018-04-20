@@ -112,7 +112,7 @@ Vue.component('menu-item', {
     <div class="col-md-6">
       <h1 class="d-inline">{{ name }}</h1>
       <i class="fa fa-info-circle float-right" data-toggle="tooltip" data-placement="bottom" :title="description"></i>
-      <h3>\${{ price }} </h3>
+      <h3>\${{ getPrice }} </h3>
       <div class="form-group">
         <label for="size">Size</label>
         <select class="form-control" name="size" v-model="size">
@@ -154,6 +154,9 @@ Vue.component('menu-item', {
               size: this.size,
               quantity: this.quantity,
               table: this.table};
+    },
+    getPrice() {
+      return (parseInt(this.quantity) * parseFloat(this.price)).toFixed(2);
     }
   },
   methods: {

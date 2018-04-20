@@ -40,26 +40,22 @@ class HomeController extends Controller
     public function cartRemove(Request $request) {
       $item = request(['name','quantity']);
       $cart = session()->get('cart');
-
+      // Check if the item is in the cart
       for ($i=0; $i < count($cart); $i++) {
         if ($cart[$i]['name'] == $item['name'] && $cart[$i]['quantity'] == $item['quantity']) {
+          // If it's in the array, store it so we can delete it later
           $index = $i;
         }
       }
 
-
+      // Get rid of the item in the cart
       session()->forget('cart.' . $index);
+      // Re-index array
       $cart2 = array_values(session()->get('cart'));
       session()->forget('cart');
       session()->put('cart', $cart2);
 
-
-
-      // foreach ($cart as $current) {
-      //   if ($current['name'] == $item['name'] and $current['quantity'] == $item['quantity']) {
-      //     unset($current);
-      //   }
-      // }
+      // Return the index deleted for debugging purposes
       return $index;
     }
     public function cart(Request $request) {
