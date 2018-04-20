@@ -58,6 +58,10 @@ class HomeController extends Controller
       // Return the index deleted for debugging purposes
       return $index;
     }
+    public function cartConfirm() {
+      $cart = session()->get('cart');
+      return view('cart.confirm', compact('cart'));
+    }
     public function cart(Request $request) {
       $cart = $request->session()->get('cart');
       $pizzas = array();

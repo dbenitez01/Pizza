@@ -2,7 +2,7 @@
 @section ('content')
   <div class="container">
     <div class="row">
-      <h1>Your Cart</h1>
+      <h1>My Cart</h1>
     </div>
     <div class="row">
       <a href="{{ route('orders.create') }}">Add More Food</a>
@@ -44,7 +44,7 @@
           <h2>$12.99</h2>
       </div>
     </div>
-    <button type="button" name="button" class="btn btn-primary float-right">Order Now</button>
+    <a href="{{ route('cart.confirm') }}" class="btn btn-primary float-right">Order Now</a>
 
 
     {{-- <pre>
