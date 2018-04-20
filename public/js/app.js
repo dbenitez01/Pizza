@@ -14050,11 +14050,21 @@ Vue.component('cart-item', {
           this.computedSize = "Large";
       }
       return this.computedSize;
+    },
+    getItem: function getItem() {
+      return {
+        name: this.name,
+        quantity: this.quantity
+      };
     }
   },
   methods: {
     remove: function remove() {
-      this.visible = false;
+      var _this2 = this;
+
+      axios.post('/cart/removeitem', this.getItem).then(this.visible = false).catch(function (error) {
+        return _this2.errors = error.response.data;
+      });
     }
   }
 });

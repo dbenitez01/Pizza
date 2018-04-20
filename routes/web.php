@@ -30,3 +30,4 @@ Route::get('/orders', 'OrderController@index')->name('orders');
 Route::get('/orders/create', 'OrderController@create')->name('orders.create');
 Route::post('/orders', 'HomeController@addToCart')->name('orders.store');
 Route::get('/cart', 'HomeController@cart')->name('cart.index');
+Route::post('/cart/removeitem', 'HomeController@cartRemove');

@@ -33,8 +33,6 @@
     <hr>
 
     <div class="d-flex justify-content-end">
-
-
       <div class="d-flex w-25 justify-content-between">
           <h4>Subtotal</h4>
           <h4>$12.99</h4>
@@ -45,28 +43,17 @@
           <h2>Total</h2>
           <h2>$12.99</h2>
       </div>
+    </div>
+    <button type="button" name="button" class="btn btn-primary float-right">Order Now</button>
 
-      </div>
-      <button type="button" name="button" class="btn btn-primary float-right">Order Now</button>
 
+    <pre>
 
-    {{-- <pre>
       @php
-        print_r($pizzas);
+        print_r($cart);
       @endphp
-      @php
-        print_r($entrees);
-      @endphp
-      @php
-        print_r($appetizers);
-      @endphp
-      @php
-        print_r($drinks);
-      @endphp
-      @php
-        print_r($desserts);
-      @endphp
-    </pre> --}}
+
+    </pre>
 
 
   </div>

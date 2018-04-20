@@ -37,6 +37,31 @@ class HomeController extends Controller
         $request->session()->push('cart', $order);
         return $request->session()->all();
     }
+    public function cartRemove(Request $request) {
+      $item = request(['name','quantity']);
+      $cart = session()->get('cart');
+
+      for ($i=0; $i < count($cart); $i++) {
+        if ($cart[$i]['name'] == $item['name'] && $cart[$i]['quantity'] == $item['quantity']) {
+          $index = $i;
+        }
+      }
+
+
+      session()->forget('cart.' . $index);
+      $cart2 = array_values(session()->get('cart'));
+      session()->forget('cart');
+      session()->put('cart', $cart2);
+
+
+
+      // foreach ($cart as $current) {
+      //   if ($current['name'] == $item['name'] and $current['quantity'] == $item['quantity']) {
+      //     unset($current);
+      //   }
+      // }
+      return $index;
+    }
     public function cart(Request $request) {
       $cart = $request->session()->get('cart');
       $pizzas = array();

@@ -214,11 +214,19 @@ Vue.component('cart-item', {
             this.computedSize = "Large"
         }
         return this.computedSize;
+      },
+      getItem() {
+        return {
+          name: this.name,
+          quantity: this.quantity,
+        };
       }
     },
     methods: {
       remove() {
-        this.visible = false;
+        axios.post('/cart/removeitem', this.getItem)
+          .then(this.visible = false)
+          .catch(error => this.errors = error.response.data);
       }
     }
 });
