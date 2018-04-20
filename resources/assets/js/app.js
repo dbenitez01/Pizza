@@ -177,7 +177,7 @@ Vue.component('cart-item', {
       <li class="list-group-item" v-if="visible">
         <div class="d-flex w-100 justify-content-between">
           <h2 class="mb-1">{{ getSize }} {{ name }}</h2>
-          <h3>\${{ price }}</h3>
+          <h3>\${{ getPrice }}</h3>
         </div>
         <div class="d-flex w-100 justify-content-between">
           <h5 class="mb-1">{{ description }}</h5>
@@ -220,6 +220,9 @@ Vue.component('cart-item', {
           name: this.name,
           quantity: this.quantity,
         };
+      },
+      getPrice() {
+        return (parseInt(this.quantity) * parseFloat(this.price)).toFixed(2);
       }
     },
     methods: {

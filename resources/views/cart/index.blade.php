@@ -47,13 +47,13 @@
     <button type="button" name="button" class="btn btn-primary float-right">Order Now</button>
 
 
-    <pre>
+    {{-- <pre>
 
       @php
         print_r($cart);
       @endphp
 
-    </pre>
+    </pre> --}}
 
 
   </div>

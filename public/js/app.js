@@ -14022,7 +14022,7 @@ Vue.component('menu-item', {
 });
 
 Vue.component('cart-item', {
-  template: '\n      <li class="list-group-item" v-if="visible">\n        <div class="d-flex w-100 justify-content-between">\n          <h2 class="mb-1">{{ getSize }} {{ name }}</h2>\n          <h3>${{ price }}</h3>\n        </div>\n        <div class="d-flex w-100 justify-content-between">\n          <h5 class="mb-1">{{ description }}</h5>\n          <input type="number" name="quantity" v-model="quantity" class="form-control" min="1" max="10" style="width: 10%;">\n        </div>\n        <div class="d-flex float-right">\n          <a href="#" @click="remove">Remove</a>\n        </div>\n      </li>\n    ',
+  template: '\n      <li class="list-group-item" v-if="visible">\n        <div class="d-flex w-100 justify-content-between">\n          <h2 class="mb-1">{{ getSize }} {{ name }}</h2>\n          <h3>${{ getPrice }}</h3>\n        </div>\n        <div class="d-flex w-100 justify-content-between">\n          <h5 class="mb-1">{{ description }}</h5>\n          <input type="number" name="quantity" v-model="quantity" class="form-control" min="1" max="10" style="width: 10%;">\n        </div>\n        <div class="d-flex float-right">\n          <a href="#" @click="remove">Remove</a>\n        </div>\n      </li>\n    ',
   data: function data() {
     return {
       computedSize: '',
@@ -14056,6 +14056,9 @@ Vue.component('cart-item', {
         name: this.name,
         quantity: this.quantity
       };
+    },
+    getPrice: function getPrice() {
+      return (parseInt(this.quantity) * parseFloat(this.price)).toFixed(2);
     }
   },
   methods: {
