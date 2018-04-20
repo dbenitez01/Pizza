@@ -1,9 +1,7 @@
 @extends ('layouts.master')
 @section ('content')
   <div class="container">
-    <div class="row">
       <h1>My Cart</h1>
-    </div>
     <form>
       <div class="row">
         <div class="col-md-9">
@@ -58,16 +56,33 @@
         </div>
       </div>
         <div class="col-md-3">
-          My Order
+          <h3>My Order</h3>
+          <div class="d-flex justify-content-between">
+            @foreach ($cart as $item)
+              <div class="">
+                {{ $item['name'] }}
+              </div>
+              <div class="">
+                ${{ $item['price'] }}
+              </div>
+            @endforeach
+          </div>
+          <hr>
+          <div class="">
+            <p>Subtotal: $12.99</p>
+            <p>Tax: $4.99</p>
+            <hr>
+            <h3>Total: $7,000</h3>
+          </div>
           <input type="Submit" name="Submit" value="Submit Order" class="btn btn-primary">
         </div>
       </div>
     </form>
-    <pre>
+    {{-- <pre>
 
       @php
         print_r($cart);
       @endphp
-    </pre>
+    </pre> --}}
   </div>
 @endsection
