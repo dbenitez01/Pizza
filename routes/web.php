@@ -26,9 +26,11 @@ Route::resource('pizzas', 'PizzaTypeController')->middleware('admin');;
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
 Route::get('/orders', 'OrderController@index')->name('orders');
 Route::get('/orders/create', 'OrderController@create')->name('orders.create');
-Route::post('/orders', 'HomeController@addToCart')->name('orders.store');
+Route::post('/orders', 'OrderController@store')->name('orders.store');
+
 Route::get('/cart', 'HomeController@cart')->name('cart.index');
 Route::post('/cart/removeitem', 'HomeController@cartRemove');
 Route::get('cart/confirm','HomeController@cartConfirm')->name('cart.confirm');

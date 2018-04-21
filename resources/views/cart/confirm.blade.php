@@ -2,7 +2,8 @@
 @section ('content')
   <div class="container">
       <h1>My Cart</h1>
-    <form>
+    <form action="{{ route('orders.store') }}" method="post">
+      {{ csrf_field() }}
       <div class="row">
         <div class="col-md-9">
           <div class="form-group">
@@ -57,6 +58,12 @@
       </div>
         <div class="col-md-3">
           <h3>My Order</h3>
+          {{-- <pre>
+
+            @php
+              print_r($cart);
+            @endphp
+          </pre> --}}
           @foreach ($cart as $item)
           <div class="d-flex justify-content-between">
 
@@ -64,7 +71,7 @@
                 {{ $item['name'] }}
               </div>
               <div class="">
-                ${{ $item['price'] }}
+                ${{ sprintf('%0.2f', $item['price'] * $item['quantity']) }}
               </div>
 
           </div>

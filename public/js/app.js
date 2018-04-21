@@ -14062,7 +14062,7 @@ Vue.component('cart-items', {
     updatePHPCart: function updatePHPCart() {
       var _this2 = this;
 
-      axios.post('/cart/updatecart', this.updateJSCart()).then(console.log('test')).catch(function (error) {
+      axios.post('/cart/updatecart', this.updateJSCart()).then(window.location = "/cart/confirm").catch(function (error) {
         return _this2.errors = error.response.data;
       });
       console.log('updated');

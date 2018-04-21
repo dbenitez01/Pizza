@@ -10,6 +10,13 @@ use App\EntreeItem;
 use App\DessertItem;
 use App\DrinkItem;
 use App\ToppingItem;
+use App\Pizza;
+use App\Drink;
+use App\Entree;
+use App\Dessert;
+use App\Appetizer;
+use Illuminate\Support\Facades\Auth;
+
 
 class OrderController extends Controller
 {
@@ -41,6 +48,34 @@ class OrderController extends Controller
     return view ('orders.create', compact('pizzas', 'apps','entrees','drinks','desserts','toppings', 'cart'));
   }
   public function store() {
-    return ['message' => 'You sent a post request!'];
+    $cart = session()->get('cart');
+    $total_price = 0;
+    foreach ($cart as $item) {
+      $total_price += $item['price'];
+    }
+
+    $order = new Order;
+    $order->user_id = Auth::user()->id;
+    $order->total_price = sprintf('%0.2f',$total_price);
+    $order->location_id = 1;
+    $order->status = "new";
+    $order->save();
+
+    $order = Order::latest()->first();
+    foreach ($cart as $item) {
+      switch ($item['table']) {
+        case 'pizza':
+          $pizza = new Pizza;
+          $pizza->orderId = $order->id;
+          $pizza->pizzaTypeId = 1;
+          $pizza->subtotal_price = sprintf('%0.2f', $item['price'] * $item['quantity']);
+          $pizza->quantity = $item['quantity'];
+          $pizza->size = $item['size'];
+          $pizza->save();
+          break;
+        }
+    }
+
+    return redirect('/orders');
   }
 }

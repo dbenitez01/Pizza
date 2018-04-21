@@ -239,7 +239,7 @@ Vue.component('cart-items',{
     },
     updatePHPCart() {
       axios.post('/cart/updatecart', this.updateJSCart())
-        .then(console.log('test'))
+        .then(window.location = "/cart/confirm")
         .catch(error => this.errors = error.response.data);
       console.log('updated');
     }

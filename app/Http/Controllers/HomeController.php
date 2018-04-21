@@ -62,14 +62,19 @@ class HomeController extends Controller
       $cart = session()->get('cart');
       $sub = 0;
       foreach ($cart as $item) {
-        $sub += $item['price'];
+        $sub += ($item['price'] * $item['quantity']);
       }
       $appliedTax = $sub - 0.875 * $sub;
       $total = $sub / 0.875;
       return view('cart.confirm', compact('cart', 'sub', 'appliedTax', 'total'));
+      // return view('cart.confirm', compact('cart'));
     }
-    public function updateCart() {
-      return 'post request!';
+    public function updateCart(Request $request) {
+      $order = $request->all();
+      session()->forget('cart');
+      // $request->session()->push('cart', $order);
+      session(['cart'=>$order]);
+      redirect('/cart/confirm');
     }
     public function cart(Request $request) {
       $cart = $request->session()->get('cart');
@@ -89,23 +94,23 @@ class HomeController extends Controller
           switch ($item['table']) {
             case 'pizza':
               array_push($pizzas, $item);
-              array_push($pizzaIds, $item['id']);
+              // array_push($pizzaIds, $item['id']);
               break;
             case 'entree':
               array_push($entrees, $item);
-              array_push($entreeIds, $item['id']);
+              // array_push($entreeIds, $item['id']);
               break;
             case 'dessert':
               array_push($desserts, $item);
-              array_push($dessertIds, $item['id']);
+              // array_push($dessertIds, $item['id']);
               break;
             case 'app':
               array_push($appetizers, $item);
-              array_push($appetizerIds, $item['id']);
+              // array_push($appetizerIds, $item['id']);
               break;
             case 'drink':
               array_push($drinks, $item);
-              array_push($drinkIds, $item['id']);
+              // array_push($drinkIds, $item['id']);
               break;
           }
         }
