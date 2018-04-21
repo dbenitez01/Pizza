@@ -33,9 +33,11 @@
         </div>
       </tab>
       <tab name="Entrees">
+        <div class="row">
         @foreach ($entrees as $entree)
           <menu-item name="{{ $entree->name }}" price="{{ $entree->price }}" description="{{ $entree->description }}" propid="{{ $entree->id }}" table="entree"></menu-item>
         @endforeach
+        </div>
       </tab>
       <tab name="Appetizers">
         <div class="row">
@@ -45,14 +47,18 @@
         </div>
       </tab>
       <tab name="Drinks">
+        <div class="row">
         @foreach ($drinks as $drink)
           <menu-item name="{{ $drink->brand }}" price="{{ $drink->price }}" description="{{ $drink->description }}" propid="{{ $drink->id }}" table="drink"></menu-item>
         @endforeach
+        </div>
       </tab>
       <tab name="Desserts">
+        <div class="row">
         @foreach ($desserts as $dessert)
           <menu-item name="{{ $dessert->name }}" price="{{ $dessert->price }}" description="{{ $dessert->description }}" propid="{{ $dessert->id }}" table="dessert"></menu-item>
         @endforeach
+        </div>
       </tab>
     </tabs>
 

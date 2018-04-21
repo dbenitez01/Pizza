@@ -14012,7 +14012,7 @@ Vue.component('menu-item', {
     onSubmit: function onSubmit() {
       var _this = this;
 
-      axios.post('/orders', this.getItem).then(this.onSuccess).catch(function (error) {
+      axios.post('/cart', this.getItem).then(this.onSuccess).catch(function (error) {
         return _this.errors = error.response.data;
       });
     },
@@ -14088,7 +14088,8 @@ Vue.component('cart-item', {
     size: { required: true },
     price: { required: true },
     quantity: { required: true },
-    table: { required: true }
+    table: { required: true },
+    propid: { required: true }
   },
   computed: {
     getSize: function getSize() {
@@ -14111,7 +14112,8 @@ Vue.component('cart-item', {
         price: this.price,
         size: this.size,
         quantity: this.quantity,
-        table: this.table
+        table: this.table,
+        id: this.propid
       };
     },
     getPrice: function getPrice() {

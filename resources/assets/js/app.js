@@ -161,7 +161,7 @@ Vue.component('menu-item', {
   },
   methods: {
     onSubmit() {
-      axios.post('/orders', this.getItem)
+      axios.post('/cart', this.getItem)
         .then(this.onSuccess)
         .catch(error => this.errors = error.response.data);
 
@@ -280,7 +280,8 @@ Vue.component('cart-item', {
       size: { required: true },
       price: { required: true },
       quantity: { required: true },
-      table: { required: true }
+      table: { required: true },
+      propid: { required: true }
     },
     computed: {
       getSize() {
@@ -304,6 +305,7 @@ Vue.component('cart-item', {
               size: this.size,
               quantity: this.quantity,
               table: this.table,
+              id: this.propid,
         };
       },
       getPrice() {

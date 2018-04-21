@@ -67,14 +67,51 @@ class OrderController extends Controller
         case 'pizza':
           $pizza = new Pizza;
           $pizza->orderId = $order->id;
-          $pizza->pizzaTypeId = 1;
+          $pizza->pizzaTypeId = $item['id'];
           $pizza->subtotal_price = sprintf('%0.2f', $item['price'] * $item['quantity']);
           $pizza->quantity = $item['quantity'];
           $pizza->size = $item['size'];
           $pizza->save();
           break;
+        case 'entree':
+          $entree = new Entree;
+          $entree->order_id = $order->id;
+          $entree->entree_item_id = $item['id'];
+          $entree->subtotal_price = sprintf('%0.2f', $item['price'] * $item['quantity']);
+          $entree->quantity = $item['quantity'];
+          $entree->size = $item['size'];
+          $entree->save();
+          break;
+        case 'app':
+          $app = new Appetizer;
+          $app->order_id = $order->id;
+          $app->appetizer_item_id = $item['id'];
+          $app->subtotal_price = sprintf('%0.2f', $item['price'] * $item['quantity']);
+          $app->quantity = $item['quantity'];
+          $app->size = $item['size'];
+          $app->save();
+          break;
+        case 'drink':
+          $drink = new Drink;
+          $drink->order_id = $order->id;
+          $drink->drinkitem_id = $item['id'];
+          $drink->subtotal_price = sprintf('%0.2f', $item['price'] * $item['quantity']);
+          $drink->quantity = $item['quantity'];
+          $drink->size = $item['size'];
+          $drink->save();
+          break;
+        case 'dessert':
+          $dessert = new Dessert;
+          $dessert->order_id = $order->id;
+          $dessert->dessert_item_id = $item['id'];
+          $dessert->subtotal_price = sprintf('%0.2f', $item['price'] * $item['quantity']);
+          $dessert->quantity = $item['quantity'];
+          $dessert->size = $item['size'];
+          $dessert->save();
+          break;
         }
     }
+    session()->forget('cart');
 
     return redirect('/orders');
   }
