@@ -14024,10 +14024,11 @@ Vue.component('menu-item', {
   }
 });
 Vue.component('cart-items', {
-  template: '\n  <div>\n    <ul class="list-group">\n      <slot></slot>\n    </ul>\n\n    <hr>\n\n    <div class="d-flex justify-content-end">\n      <div class="d-flex w-25 justify-content-between">\n          <h4>Subtotal</h4>\n          <h4>${{ totalPrice }}</h4>\n      </div>\n    </div>\n    <div class="d-flex justify-content-end">\n      <div class="d-flex w-25 justify-content-between">\n          <h4>Tax</h4>\n          <h4>${{ calctax }}</h4>\n      </div>\n    </div>\n    <div class="d-flex justify-content-end">\n      <div class="d-flex w-25 justify-content-between">\n          <h2>Total</h2>\n          <h2>${{ total }}</h2>\n      </div>\n    </div>\n    <a href="/cart/confirm" class="btn btn-primary float-right" @click="updateCart">Order Now</a>\n    </div>\n  ',
+  template: '\n  <div>\n    <ul class="list-group">\n      <slot></slot>\n    </ul>\n\n    <hr>\n\n    <div class="d-flex justify-content-end">\n      <div class="d-flex w-25 justify-content-between">\n          <h4>Subtotal</h4>\n          <h4>${{ totalPrice }}</h4>\n      </div>\n    </div>\n    <div class="d-flex justify-content-end">\n      <div class="d-flex w-25 justify-content-between">\n          <h4>Tax</h4>\n          <h4>${{ calctax }}</h4>\n      </div>\n    </div>\n    <div class="d-flex justify-content-end">\n      <div class="d-flex w-25 justify-content-between">\n          <h2>Total</h2>\n          <h2>${{ total }}</h2>\n      </div>\n    </div>\n    <a href="/cart/confirm" class="btn btn-primary float-right" @click.prevent="updatePHPCart">Order Now</a>\n    </div>\n  ',
   data: function data() {
     return { cartitems: [],
-      tax: 0.875 };
+      tax: 0.875,
+      newcartitems: [] };
   },
 
   computed: {
@@ -14047,16 +14048,30 @@ Vue.component('cart-items', {
     }
   },
   methods: {
-    updateCart: function updateCart() {
+    updateJSCart: function updateJSCart() {
+      this.newcartitems = [];
+      for (var i = 0; i < this.cartitems.length; i++) {
+        console.log(this.cartitems[i].getItem);
+        this.newcartitems.push(this.cartitems[i].getItem);
+      }
+
+      // console.log(this.newcartitems);
+      return this.newcartitems;
       console.log('fixed!');
+    },
+    updatePHPCart: function updatePHPCart() {
+      var _this2 = this;
+
+      axios.post('/cart/updatecart', this.updateJSCart()).then(console.log('test')).catch(function (error) {
+        return _this2.errors = error.response.data;
+      });
+      console.log('updated');
     }
   },
   created: function created() {
     this.cartitems = this.$children;
   },
-  updated: function updated() {
-    console.log('updated');
-  }
+  updated: function updated() {}
 });
 Vue.component('cart-item', {
   template: '\n      <li class="list-group-item" v-if="visible">\n        <div class="d-flex w-100 justify-content-between">\n          <h2 class="mb-1">{{ getSize }} {{ name }}</h2>\n          <h3>${{ getPrice }}</h3>\n        </div>\n        <div class="d-flex w-100 justify-content-between">\n          <h5 class="mb-1">{{ description }}</h5>\n          <input type="number" name="quantity" v-model="quantity" class="form-control" min="1" max="10" style="width: 10%;">\n        </div>\n        <div class="d-flex float-right">\n          <a href="#" @click="remove">Remove</a>\n        </div>\n      </li>\n    ',
@@ -14072,7 +14087,8 @@ Vue.component('cart-item', {
     description: { required: true },
     size: { required: true },
     price: { required: true },
-    quantity: { required: true }
+    quantity: { required: true },
+    table: { required: true }
   },
   computed: {
     getSize: function getSize() {
@@ -14091,7 +14107,11 @@ Vue.component('cart-item', {
     getItem: function getItem() {
       return {
         name: this.name,
-        quantity: this.quantity
+        description: this.description,
+        price: this.price,
+        size: this.size,
+        quantity: this.quantity,
+        table: this.table
       };
     },
     getPrice: function getPrice() {
@@ -14100,10 +14120,10 @@ Vue.component('cart-item', {
   },
   methods: {
     remove: function remove() {
-      var _this2 = this;
+      var _this3 = this;
 
       axios.post('/cart/removeitem', this.getItem).then(this.onDelete).catch(function (error) {
-        return _this2.errors = error.response.data;
+        return _this3.errors = error.response.data;
       });
     },
     onDelete: function onDelete(response) {

@@ -68,6 +68,9 @@ class HomeController extends Controller
       $total = $sub / 0.875;
       return view('cart.confirm', compact('cart', 'sub', 'appliedTax', 'total'));
     }
+    public function updateCart() {
+      return 'post request!';
+    }
     public function cart(Request $request) {
       $cart = $request->session()->get('cart');
       $pizzas = array();

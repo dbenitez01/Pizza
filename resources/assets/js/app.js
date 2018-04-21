@@ -201,12 +201,13 @@ Vue.component('cart-items',{
           <h2>\${{ total }}</h2>
       </div>
     </div>
-    <a href="/cart/confirm" class="btn btn-primary float-right" @click="updateCart">Order Now</a>
+    <a href="/cart/confirm" class="btn btn-primary float-right" @click.prevent="updatePHPCart">Order Now</a>
     </div>
   `,
   data() {
     return {cartitems: [],
-    tax: 0.875};
+    tax: 0.875,
+    newcartitems: []};
   },
   computed: {
     totalPrice() {
@@ -225,8 +226,22 @@ Vue.component('cart-items',{
     }
   },
   methods: {
-    updateCart() {
+    updateJSCart() {
+      this.newcartitems = [];
+      for (var i = 0; i < this.cartitems.length; i++) {
+        console.log(this.cartitems[i].getItem);
+        this.newcartitems.push(this.cartitems[i].getItem);
+      }
+
+      // console.log(this.newcartitems);
+      return this.newcartitems;
       console.log('fixed!');
+    },
+    updatePHPCart() {
+      axios.post('/cart/updatecart', this.updateJSCart())
+        .then(console.log('test'))
+        .catch(error => this.errors = error.response.data);
+      console.log('updated');
     }
   },
   created() {
@@ -234,7 +249,7 @@ Vue.component('cart-items',{
 
   },
   updated() {
-    console.log('updated');
+
   }
 });
 Vue.component('cart-item', {
@@ -265,6 +280,7 @@ Vue.component('cart-item', {
       size: { required: true },
       price: { required: true },
       quantity: { required: true },
+      table: { required: true }
     },
     computed: {
       getSize() {
@@ -282,8 +298,12 @@ Vue.component('cart-item', {
       },
       getItem() {
         return {
-          name: this.name,
-          quantity: this.quantity,
+              name: this.name,
+              description: this.description,
+              price: this.price,
+              size: this.size,
+              quantity: this.quantity,
+              table: this.table,
         };
       },
       getPrice() {
