@@ -14024,7 +14024,7 @@ Vue.component('menu-item', {
   }
 });
 Vue.component('cart-items', {
-  template: '\n  <div>\n    <ul class="list-group">\n      <slot></slot>\n    </ul>\n\n    <hr>\n\n    <div class="d-flex justify-content-end">\n      <div class="d-flex w-25 justify-content-between">\n          <h4>Subtotal</h4>\n          <h4>{{ totalPrice }}</h4>\n      </div>\n    </div>\n    <div class="d-flex justify-content-end">\n      <div class="d-flex w-25 justify-content-between">\n          <h4>Tax</h4>\n          <h4>{{ calctax }}</h4>\n      </div>\n    </div>\n    <div class="d-flex justify-content-end">\n      <div class="d-flex w-25 justify-content-between">\n          <h2>Total</h2>\n          <h2>{{ total }}</h2>\n      </div>\n    </div>\n    <a href="/cart/confirm" class="btn btn-primary float-right">Order Now</a>\n    </div>\n  ',
+  template: '\n  <div>\n    <ul class="list-group">\n      <slot></slot>\n    </ul>\n\n    <hr>\n\n    <div class="d-flex justify-content-end">\n      <div class="d-flex w-25 justify-content-between">\n          <h4>Subtotal</h4>\n          <h4>${{ totalPrice }}</h4>\n      </div>\n    </div>\n    <div class="d-flex justify-content-end">\n      <div class="d-flex w-25 justify-content-between">\n          <h4>Tax</h4>\n          <h4>${{ calctax }}</h4>\n      </div>\n    </div>\n    <div class="d-flex justify-content-end">\n      <div class="d-flex w-25 justify-content-between">\n          <h2>Total</h2>\n          <h2>${{ total }}</h2>\n      </div>\n    </div>\n    <a href="/cart/confirm" class="btn btn-primary float-right">Order Now</a>\n    </div>\n  ',
   data: function data() {
     return { cartitems: [],
       tax: 0.875 };

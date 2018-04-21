@@ -186,19 +186,19 @@ Vue.component('cart-items',{
     <div class="d-flex justify-content-end">
       <div class="d-flex w-25 justify-content-between">
           <h4>Subtotal</h4>
-          <h4>{{ totalPrice }}</h4>
+          <h4>\${{ totalPrice }}</h4>
       </div>
     </div>
     <div class="d-flex justify-content-end">
       <div class="d-flex w-25 justify-content-between">
           <h4>Tax</h4>
-          <h4>{{ calctax }}</h4>
+          <h4>\${{ calctax }}</h4>
       </div>
     </div>
     <div class="d-flex justify-content-end">
       <div class="d-flex w-25 justify-content-between">
           <h2>Total</h2>
-          <h2>{{ total }}</h2>
+          <h2>\${{ total }}</h2>
       </div>
     </div>
     <a href="/cart/confirm" class="btn btn-primary float-right">Order Now</a>
