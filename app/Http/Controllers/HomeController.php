@@ -60,6 +60,9 @@ class HomeController extends Controller
     }
     public function cartConfirm() {
       $cart = session()->get('cart');
+      $sub = 0;
+      $appliedTax = 0;
+      $total = 0;
       return view('cart.confirm', compact('cart'));
     }
     public function cart(Request $request) {

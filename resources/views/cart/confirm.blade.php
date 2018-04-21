@@ -57,16 +57,18 @@
       </div>
         <div class="col-md-3">
           <h3>My Order</h3>
+          @foreach ($cart as $item)
           <div class="d-flex justify-content-between">
-            @foreach ($cart as $item)
+
               <div class="">
                 {{ $item['name'] }}
               </div>
               <div class="">
                 ${{ $item['price'] }}
               </div>
-            @endforeach
+
           </div>
+          @endforeach
           <hr>
           <div class="">
             <p>Subtotal: $12.99</p>
