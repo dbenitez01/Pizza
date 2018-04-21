@@ -1,11 +1,10 @@
 @extends ('layouts.master')
 @section ('content')
   <div class="container">
-    <div class="row">
+    <div class="d-flex justify-content-between">
       <h1>My Cart</h1>
-    </div>
-    <div class="row">
-      <a href="{{ route('orders.create') }}">Add More Food</a>
+
+      <a href="{{ route('orders.create') }}" class="mt-3  ">Add More Food</a>
     </div>
     <cart-items>
 

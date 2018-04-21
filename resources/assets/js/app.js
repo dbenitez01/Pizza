@@ -201,7 +201,7 @@ Vue.component('cart-items',{
           <h2>\${{ total }}</h2>
       </div>
     </div>
-    <a href="/cart/confirm" class="btn btn-primary float-right">Order Now</a>
+    <a href="/cart/confirm" class="btn btn-primary float-right" @click="updateCart">Order Now</a>
     </div>
   `,
   data() {
@@ -222,6 +222,11 @@ Vue.component('cart-items',{
     },
     total() {
       return (this.totalPrice / this.tax).toFixed(2);
+    }
+  },
+  methods: {
+    updateCart() {
+      console.log('fixed!');
     }
   },
   created() {
