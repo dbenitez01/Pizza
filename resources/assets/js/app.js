@@ -168,7 +168,7 @@ Vue.component('menu-item', {
     },
 
     onSuccess(response) {
-      alert(response.data.cart);
+      // alert(response.data.cart);
       app.$emit('applied');
       // location.reload();
     }
@@ -186,19 +186,19 @@ Vue.component('cart-items',{
     <div class="d-flex justify-content-end">
       <div class="d-flex w-25 justify-content-between">
           <h4>Subtotal</h4>
-          <h4>\${{ totalPrice }}</h4>
+          <h4>{{ totalPrice }}</h4>
       </div>
     </div>
     <div class="d-flex justify-content-end">
       <div class="d-flex w-25 justify-content-between">
           <h4>Tax</h4>
-          <h4>\${{ calctax }}</h4>
+          <h4>{{ calctax }}</h4>
       </div>
     </div>
     <div class="d-flex justify-content-end">
       <div class="d-flex w-25 justify-content-between">
           <h2>Total</h2>
-          <h2>\${{ total }}</h2>
+          <h2>{{ total }}</h2>
       </div>
     </div>
     <a href="/cart/confirm" class="btn btn-primary float-right">Order Now</a>
@@ -228,6 +228,9 @@ Vue.component('cart-items',{
     this.cartitems = this.$children;
 
   },
+  updated() {
+    console.log('updated');
+  }
 });
 Vue.component('cart-item', {
     template: `
@@ -285,9 +288,19 @@ Vue.component('cart-item', {
     methods: {
       remove() {
         axios.post('/cart/removeitem', this.getItem)
-          .then(this.visible = false)
+          .then(this.onDelete)
           .catch(error => this.errors = error.response.data);
+      },
+      onDelete(response){
+        this.$destroy;
+        this.price = 0;
+        this.visible = false;
+
       }
+    },
+    beforeDestroy() {
+      console.log('deleted');
+      this.price = 0;
     }
 });
 
