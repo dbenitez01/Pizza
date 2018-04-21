@@ -87,7 +87,7 @@
                             <li class="nav-item dropdown"><a id="cartDropDown" href="#" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                               <i class="fa fa-shopping-cart"></i>
                                   @if (isset($cart))
-                                    <cart-items number="{{ count($cart) }}"></cart-items>
+                                    <cart-items-num number="{{ count($cart) }}"></cart-items-num>
                                   @endif
                                </a>
 

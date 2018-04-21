@@ -7,7 +7,7 @@
     <div class="row">
       <a href="{{ route('orders.create') }}">Add More Food</a>
     </div>
-    <ul class="list-group">
+    <cart-items>
 
       @foreach ($pizzas as $pizza)
         <cart-item name="{{ $pizza['name'] }}" price="{{ $pizza['price'] }}"
@@ -29,23 +29,8 @@
         <cart-item name="{{ $dessert['name'] }}" price="{{ $dessert['price'] }}"
         description="{{ $dessert['description'] }}" quantity="{{ $dessert['quantity'] }}" size="{{ $dessert['size'] }}"></cart-item>
       @endforeach
-    </ul>
-    <hr>
 
-    <div class="d-flex justify-content-end">
-      <div class="d-flex w-25 justify-content-between">
-          <h4>Subtotal</h4>
-          <h4>$12.99</h4>
-      </div>
-    </div>
-    <div class="d-flex justify-content-end">
-      <div class="d-flex w-25 justify-content-between">
-          <h2>Total</h2>
-          <h2>$12.99</h2>
-      </div>
-    </div>
-    <a href="{{ route('cart.confirm') }}" class="btn btn-primary float-right">Order Now</a>
-
+    </cart-items>
 
     {{-- <pre>
 

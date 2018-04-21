@@ -13915,7 +13915,7 @@ var Errors = function () {
 
 window.Vue = __webpack_require__(36);
 
-Vue.component('cart-items', {
+Vue.component('cart-items-num', {
   template: '\n    <span>{{ cartItems }}</span>\n  ',
   mounted: function mounted() {
     this.$root.$on('applied', function () {
@@ -14023,7 +14023,33 @@ Vue.component('menu-item', {
     }
   }
 });
+Vue.component('cart-items', {
+  template: '\n  <div>\n    <ul class="list-group">\n      <slot></slot>\n    </ul>\n\n    <hr>\n\n    <div class="d-flex justify-content-end">\n      <div class="d-flex w-25 justify-content-between">\n          <h4>Subtotal</h4>\n          <h4>${{ totalPrice }}</h4>\n      </div>\n    </div>\n    <div class="d-flex justify-content-end">\n      <div class="d-flex w-25 justify-content-between">\n          <h4>Tax</h4>\n          <h4>${{ calctax }}</h4>\n      </div>\n    </div>\n    <div class="d-flex justify-content-end">\n      <div class="d-flex w-25 justify-content-between">\n          <h2>Total</h2>\n          <h2>${{ total }}</h2>\n      </div>\n    </div>\n    <a href="/cart/confirm" class="btn btn-primary float-right">Order Now</a>\n    </div>\n  ',
+  data: function data() {
+    return { cartitems: [],
+      tax: 0.875 };
+  },
 
+  computed: {
+    totalPrice: function totalPrice() {
+      var total = 0;
+      for (var i = 0; i < this.cartitems.length; i++) {
+        total += parseFloat(this.cartitems[i].getPrice);
+        console.log(total);
+      }
+      return total.toFixed(2);
+    },
+    calctax: function calctax() {
+      return (this.totalPrice - this.totalPrice * this.tax).toFixed(2);
+    },
+    total: function total() {
+      return (this.totalPrice / this.tax).toFixed(2);
+    }
+  },
+  created: function created() {
+    this.cartitems = this.$children;
+  }
+});
 Vue.component('cart-item', {
   template: '\n      <li class="list-group-item" v-if="visible">\n        <div class="d-flex w-100 justify-content-between">\n          <h2 class="mb-1">{{ getSize }} {{ name }}</h2>\n          <h3>${{ getPrice }}</h3>\n        </div>\n        <div class="d-flex w-100 justify-content-between">\n          <h5 class="mb-1">{{ description }}</h5>\n          <input type="number" name="quantity" v-model="quantity" class="form-control" min="1" max="10" style="width: 10%;">\n        </div>\n        <div class="d-flex float-right">\n          <a href="#" @click="remove">Remove</a>\n        </div>\n      </li>\n    ',
   data: function data() {

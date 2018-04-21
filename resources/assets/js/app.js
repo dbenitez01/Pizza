@@ -29,7 +29,7 @@ class Errors {
 window.Vue = require('vue');
 
 
-Vue.component('cart-items', {
+Vue.component('cart-items-num', {
   template: `
     <span>{{ cartItems }}</span>
   `,
@@ -174,7 +174,61 @@ Vue.component('menu-item', {
     }
   }
 });
+Vue.component('cart-items',{
+  template: `
+  <div>
+    <ul class="list-group">
+      <slot></slot>
+    </ul>
 
+    <hr>
+
+    <div class="d-flex justify-content-end">
+      <div class="d-flex w-25 justify-content-between">
+          <h4>Subtotal</h4>
+          <h4>\${{ totalPrice }}</h4>
+      </div>
+    </div>
+    <div class="d-flex justify-content-end">
+      <div class="d-flex w-25 justify-content-between">
+          <h4>Tax</h4>
+          <h4>\${{ calctax }}</h4>
+      </div>
+    </div>
+    <div class="d-flex justify-content-end">
+      <div class="d-flex w-25 justify-content-between">
+          <h2>Total</h2>
+          <h2>\${{ total }}</h2>
+      </div>
+    </div>
+    <a href="/cart/confirm" class="btn btn-primary float-right">Order Now</a>
+    </div>
+  `,
+  data() {
+    return {cartitems: [],
+    tax: 0.875};
+  },
+  computed: {
+    totalPrice() {
+      var total = 0;
+      for (var i = 0; i < this.cartitems.length; i++) {
+        total += parseFloat(this.cartitems[i].getPrice);
+        console.log(total);
+      }
+      return total.toFixed(2);
+    },
+    calctax() {
+      return (this.totalPrice - (this.totalPrice * this.tax)).toFixed(2);
+    },
+    total() {
+      return (this.totalPrice / this.tax).toFixed(2);
+    }
+  },
+  created() {
+    this.cartitems = this.$children;
+
+  },
+});
 Vue.component('cart-item', {
     template: `
       <li class="list-group-item" v-if="visible">
