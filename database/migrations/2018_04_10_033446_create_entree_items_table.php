@@ -15,6 +15,9 @@ class CreateEntreeItemsTable extends Migration
     {
         Schema::create('entree_items', function (Blueprint $table) {
             $table->increments('id');
+            $table->String('name');
+            $table->text('description');
+            $table->double('price');
             $table->timestamps();
         });
     }

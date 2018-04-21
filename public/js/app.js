@@ -13867,13 +13867,16 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(12);
-module.exports = __webpack_require__(43);
+module.exports = __webpack_require__(39);
 
 
 /***/ }),
 /* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -13882,22 +13885,265 @@ module.exports = __webpack_require__(43);
  */
 
 __webpack_require__(13);
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip();
+});
+
+var Errors = function () {
+  function Errors() {
+    _classCallCheck(this, Errors);
+
+    this.errors = {};
+  }
+
+  _createClass(Errors, [{
+    key: 'get',
+    value: function get(field) {
+      if (this.errors[field]) {
+        return this.errors[field][0];
+      }
+    }
+  }, {
+    key: 'record',
+    value: function record(errors) {
+      this.errors = errors;
+    }
+  }]);
+
+  return Errors;
+}();
 
 window.Vue = __webpack_require__(36);
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+Vue.component('cart-items-num', {
+  template: '\n    <span>{{ cartItems }}</span>\n  ',
+  mounted: function mounted() {
+    this.$root.$on('applied', function () {
+      // here you need to use the arrow function
+      console.log(this);
+      this.$children[0].cartItems = parseInt(this.$children[0].cartItems) + 1;
+    });
+  },
+  data: function data() {
+    return {
+      cartItems: this.number
+    };
+  },
 
-Vue.component('example-component', __webpack_require__(39));
+  props: {
+    number: { required: true }
+  }
+});
+
+Vue.component('tabs', {
+  template: '\n  <div>\n    <hr> <!-- subnav -->\n      <ul class="nav nav-pills justify-content-center nav-fill">\n        <li v-for="tab in tabs" class="nav-item" :class=" { \'is-Active\': tab.isActive }">\n          <h4><a :href="tab.href" @click="selectTab(tab)" class="nav-link">{{ tab.name }}</a></h4>\n        </li>\n      </ul>\n\n    <hr> <!-- end subnav -->\n\n    <div class="tabs-details">\n      <slot></slot>\n    </div>\n  </div>\n  ',
+  data: function data() {
+    return { tabs: [] };
+  },
+  created: function created() {
+    this.tabs = this.$children;
+  },
+
+  methods: {
+    selectTab: function selectTab(selectedTab) {
+      this.tabs.forEach(function (tab) {
+        tab.isActive = tab.name == selectedTab.name;
+      });
+      $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+      });
+    }
+  }
+});
+
+Vue.component('tab', {
+  template: '\n    <div v-if="isActive"><slot></slot></div>\n  ',
+  props: {
+    name: { required: true },
+    selected: { default: false }
+  },
+  computed: {
+    href: function href() {
+      return '#' + this.name.toLowerCase().replace(/ /g, "-");
+    }
+  },
+  data: function data() {
+    return {
+      isActive: false
+    };
+  },
+  mounted: function mounted() {
+    this.isActive = this.selected;
+  }
+});
+
+Vue.component('menu-item', {
+  template: '\n    <div class="col-md-6">\n      <h1 class="d-inline">{{ name }}</h1>\n      <i class="fa fa-info-circle float-right" data-toggle="tooltip" data-placement="bottom" :title="description"></i>\n      <h3>${{ getPrice }} </h3>\n      <div class="form-group">\n        <label for="size">Size</label>\n        <select class="form-control" name="size" v-model="size">\n          <option value="S">Small</option>\n          <option value="M">Medium</option>\n          <option value="L">Large</option>\n        </select>\n      </div>\n      <div class="form-row">\n        <div class="form-group col-md-2">\n          <input type="number" name="quantity" value="1" class="form-control" min="1" max="10" v-model="quantity">\n        </div>\n        <div class="form-group col-md-10">\n          <button type="button" name="button" class="btn btn-primary" @click.prevent="onSubmit"><i class="fa fa-plus"></i> Add to Order</button>\n        </div>\n      </div>\n    </div>\n  ',
+  props: {
+    name: { required: true },
+    price: { required: true },
+    description: { required: true },
+    propid: { required: true },
+    table: { required: true }
+  },
+  data: function data() {
+    return {
+      size: 'S',
+      quantity: 1,
+      errors: {}
+    };
+  },
+
+  computed: {
+    getItem: function getItem() {
+      return { id: this.propid,
+        name: this.name,
+        description: this.description,
+        price: this.price,
+        size: this.size,
+        quantity: this.quantity,
+        table: this.table };
+    },
+    getPrice: function getPrice() {
+      return (parseInt(this.quantity) * parseFloat(this.price)).toFixed(2);
+    }
+  },
+  methods: {
+    onSubmit: function onSubmit() {
+      var _this = this;
+
+      axios.post('/cart', this.getItem).then(this.onSuccess).catch(function (error) {
+        return _this.errors = error.response.data;
+      });
+    },
+    onSuccess: function onSuccess(response) {
+      // alert(response.data.cart);
+      app.$emit('applied');
+      // location.reload();
+    }
+  }
+});
+Vue.component('cart-items', {
+  template: '\n  <div>\n    <ul class="list-group">\n      <slot></slot>\n    </ul>\n\n    <hr>\n\n    <div class="d-flex justify-content-end">\n      <div class="d-flex w-25 justify-content-between">\n          <h4>Subtotal</h4>\n          <h4>${{ totalPrice }}</h4>\n      </div>\n    </div>\n    <div class="d-flex justify-content-end">\n      <div class="d-flex w-25 justify-content-between">\n          <h4>Tax</h4>\n          <h4>${{ calctax }}</h4>\n      </div>\n    </div>\n    <div class="d-flex justify-content-end">\n      <div class="d-flex w-25 justify-content-between">\n          <h2>Total</h2>\n          <h2>${{ total }}</h2>\n      </div>\n    </div>\n    <a href="/cart/confirm" class="btn btn-primary float-right" @click.prevent="updatePHPCart">Order Now</a>\n    </div>\n  ',
+  data: function data() {
+    return { cartitems: [],
+      tax: 0.875,
+      newcartitems: [] };
+  },
+
+  computed: {
+    totalPrice: function totalPrice() {
+      var total = 0;
+      for (var i = 0; i < this.cartitems.length; i++) {
+        total += parseFloat(this.cartitems[i].getPrice);
+        console.log(total);
+      }
+      return total.toFixed(2);
+    },
+    calctax: function calctax() {
+      return (this.totalPrice - this.totalPrice * this.tax).toFixed(2);
+    },
+    total: function total() {
+      return (this.totalPrice / this.tax).toFixed(2);
+    }
+  },
+  methods: {
+    updateJSCart: function updateJSCart() {
+      this.newcartitems = [];
+      for (var i = 0; i < this.cartitems.length; i++) {
+        console.log(this.cartitems[i].getItem);
+        this.newcartitems.push(this.cartitems[i].getItem);
+      }
+
+      // console.log(this.newcartitems);
+      return this.newcartitems;
+      console.log('fixed!');
+    },
+    updatePHPCart: function updatePHPCart() {
+      var _this2 = this;
+
+      axios.post('/cart/updatecart', this.updateJSCart()).then(window.location = "/cart/confirm").catch(function (error) {
+        return _this2.errors = error.response.data;
+      });
+      console.log('updated');
+    }
+  },
+  created: function created() {
+    this.cartitems = this.$children;
+  },
+  updated: function updated() {}
+});
+Vue.component('cart-item', {
+  template: '\n      <li class="list-group-item" v-if="visible">\n        <div class="d-flex w-100 justify-content-between">\n          <h2 class="mb-1">{{ getSize }} {{ name }}</h2>\n          <h3>${{ getPrice }}</h3>\n        </div>\n        <div class="d-flex w-100 justify-content-between">\n          <h5 class="mb-1">{{ description }}</h5>\n          <input type="number" name="quantity" v-model="quantity" class="form-control" min="1" max="10" style="width: 10%;">\n        </div>\n        <div class="d-flex float-right">\n          <a href="#" @click="remove">Remove</a>\n        </div>\n      </li>\n    ',
+  data: function data() {
+    return {
+      computedSize: '',
+      visible: true
+    };
+  },
+
+  props: {
+    name: { required: true },
+    description: { required: true },
+    size: { required: true },
+    price: { required: true },
+    quantity: { required: true },
+    table: { required: true },
+    propid: { required: true }
+  },
+  computed: {
+    getSize: function getSize() {
+      switch (this.size) {
+        case 'S':
+          this.computedSize = 'Small';
+          break;
+        case 'M':
+          this.computedSize = 'Medium';
+          break;
+        default:
+          this.computedSize = "Large";
+      }
+      return this.computedSize;
+    },
+    getItem: function getItem() {
+      return {
+        name: this.name,
+        description: this.description,
+        price: this.price,
+        size: this.size,
+        quantity: this.quantity,
+        table: this.table,
+        id: this.propid
+      };
+    },
+    getPrice: function getPrice() {
+      return (parseInt(this.quantity) * parseFloat(this.price)).toFixed(2);
+    }
+  },
+  methods: {
+    remove: function remove() {
+      var _this3 = this;
+
+      axios.post('/cart/removeitem', this.getItem).then(this.onDelete).catch(function (error) {
+        return _this3.errors = error.response.data;
+      });
+    },
+    onDelete: function onDelete(response) {
+      this.$destroy;
+      this.price = 0;
+      this.visible = false;
+    }
+  },
+  beforeDestroy: function beforeDestroy() {
+    console.log('deleted');
+    this.price = 0;
+  }
+});
 
 app = new Vue({
   el: '#app',
   data: {
-    isActive: true,
-    hasError: false
+    errors: new Errors()
   }
 });
 
@@ -47142,234 +47388,6 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 /***/ }),
 /* 39 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(40)
-/* script */
-var __vue_script__ = __webpack_require__(41)
-/* template */
-var __vue_template__ = __webpack_require__(42)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources\\assets\\js\\components\\ExampleComponent.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-0ca92eac", Component.options)
-  } else {
-    hotAPI.reload("data-v-0ca92eac", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 40 */
-/***/ (function(module, exports) {
-
-/* globals __VUE_SSR_CONTEXT__ */
-
-// IMPORTANT: Do NOT use ES2015 features in this file.
-// This module is a runtime utility for cleaner component module output and will
-// be included in the final webpack user bundle.
-
-module.exports = function normalizeComponent (
-  rawScriptExports,
-  compiledTemplate,
-  functionalTemplate,
-  injectStyles,
-  scopeId,
-  moduleIdentifier /* server only */
-) {
-  var esModule
-  var scriptExports = rawScriptExports = rawScriptExports || {}
-
-  // ES6 modules interop
-  var type = typeof rawScriptExports.default
-  if (type === 'object' || type === 'function') {
-    esModule = rawScriptExports
-    scriptExports = rawScriptExports.default
-  }
-
-  // Vue.extend constructor export interop
-  var options = typeof scriptExports === 'function'
-    ? scriptExports.options
-    : scriptExports
-
-  // render functions
-  if (compiledTemplate) {
-    options.render = compiledTemplate.render
-    options.staticRenderFns = compiledTemplate.staticRenderFns
-    options._compiled = true
-  }
-
-  // functional template
-  if (functionalTemplate) {
-    options.functional = true
-  }
-
-  // scopedId
-  if (scopeId) {
-    options._scopeId = scopeId
-  }
-
-  var hook
-  if (moduleIdentifier) { // server build
-    hook = function (context) {
-      // 2.3 injection
-      context =
-        context || // cached call
-        (this.$vnode && this.$vnode.ssrContext) || // stateful
-        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
-      // 2.2 with runInNewContext: true
-      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
-        context = __VUE_SSR_CONTEXT__
-      }
-      // inject component styles
-      if (injectStyles) {
-        injectStyles.call(this, context)
-      }
-      // register component module identifier for async chunk inferrence
-      if (context && context._registeredComponents) {
-        context._registeredComponents.add(moduleIdentifier)
-      }
-    }
-    // used by ssr in case component is cached and beforeCreate
-    // never gets called
-    options._ssrRegister = hook
-  } else if (injectStyles) {
-    hook = injectStyles
-  }
-
-  if (hook) {
-    var functional = options.functional
-    var existing = functional
-      ? options.render
-      : options.beforeCreate
-
-    if (!functional) {
-      // inject component registration as beforeCreate hook
-      options.beforeCreate = existing
-        ? [].concat(existing, hook)
-        : [hook]
-    } else {
-      // for template-only hot-reload because in that case the render fn doesn't
-      // go through the normalizer
-      options._injectStyles = hook
-      // register for functioal component in vue file
-      options.render = function renderWithStyleInjection (h, context) {
-        hook.call(context)
-        return existing(h, context)
-      }
-    }
-  }
-
-  return {
-    esModule: esModule,
-    exports: scriptExports,
-    options: options
-  }
-}
-
-
-/***/ }),
-/* 41 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        console.log('Component mounted.');
-    }
-});
-
-/***/ }),
-/* 42 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "card card-default" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _vm._v("Example Component")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _vm._v(
-                "\n                    I'm an example component.\n                "
-              )
-            ])
-          ])
-        ])
-      ])
-    ])
-  }
-]
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-0ca92eac", module.exports)
-  }
-}
-
-/***/ }),
-/* 43 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

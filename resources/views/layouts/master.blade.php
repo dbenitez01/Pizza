@@ -84,6 +84,19 @@
                                     </form>
                                 </div>
                             </li>
+                            <li class="nav-item dropdown"><a id="cartDropDown" href="#" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <i class="fa fa-shopping-cart"></i>
+                                  @if (isset($cart))
+                                    <cart-items-num number="{{ count($cart) }}"></cart-items-num>
+                                  @endif
+                               </a>
+
+                              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a href="{{ route('cart.index') }}" class="dropdown-item">View Cart</a>
+
+                              </div>
+
+                            </li>
                         @endguest
                     </ul>
                 </div>
