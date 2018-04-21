@@ -61,9 +61,12 @@ class HomeController extends Controller
     public function cartConfirm() {
       $cart = session()->get('cart');
       $sub = 0;
-      $appliedTax = 0;
-      $total = 0;
-      return view('cart.confirm', compact('cart'));
+      foreach ($cart as $item) {
+        $sub += $item['price'];
+      }
+      $appliedTax = $sub - 0.875 * $sub;
+      $total = $sub / 0.875;
+      return view('cart.confirm', compact('cart', 'sub', 'appliedTax', 'total'));
     }
     public function cart(Request $request) {
       $cart = $request->session()->get('cart');

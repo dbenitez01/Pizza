@@ -71,10 +71,10 @@
           @endforeach
           <hr>
           <div class="">
-            <p>Subtotal: $12.99</p>
-            <p>Tax: $4.99</p>
+            <p>Subtotal: ${{ $sub }}</p>
+            <p>Tax: ${{ sprintf('%0.2f', $appliedTax) }}</p>
             <hr>
-            <h3>Total: $7,000</h3>
+            <h3>Total: ${{ sprintf('%0.2f', $total) }}</h3>
           </div>
           <input type="Submit" name="Submit" value="Submit Order" class="btn btn-primary">
         </div>
