@@ -38,7 +38,8 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        <li><a class="nav-link" href="{{ route('orders.create') }}">Menu</a></li>
+                        <li><a class="nav-link" href="#">Menu</a></li>
+                        <li><a class="nav-link" href="{{ route('orders.create') }}">Order</a></li>
                         <li><a class="nav-link" href="#">Contact</a></li>
                         @auth
                           @if (Auth::user()->is_admin)
