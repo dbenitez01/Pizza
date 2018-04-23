@@ -13991,7 +13991,7 @@ Vue.component('menu-item', {
     return {
       size: 'S',
       quantity: 1,
-      errors: {}
+      dataprice: 0
     };
   },
 
@@ -14000,7 +14000,7 @@ Vue.component('menu-item', {
       return { id: this.propid,
         name: this.name,
         description: this.description,
-        price: this.price,
+        price: this.dataprice,
         size: this.size,
         quantity: this.quantity,
         table: this.table };
@@ -14009,7 +14009,13 @@ Vue.component('menu-item', {
       return "/storage/avatars/" + this.picture;
     },
     getPrice: function getPrice() {
-      return (parseInt(this.quantity) * parseFloat(this.price)).toFixed(2);
+      this.dataprice = parseFloat(this.price);
+      if (this.size == 'S') {} else if (this.size == 'M') {
+        this.dataprice += 0.50;
+      } else if (this.size == 'L') {
+        this.dataprice += 1;
+      }
+      return (parseInt(this.quantity) * this.dataprice).toFixed(2);
     }
   },
   methods: {
