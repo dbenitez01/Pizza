@@ -18,6 +18,7 @@ class CreateToppingItemsTable extends Migration
             $table->String('type');
             $table->text("description");
             $table->double('price');
+            $table->String('user_photo');
             $table->timestamps();
         });
     }

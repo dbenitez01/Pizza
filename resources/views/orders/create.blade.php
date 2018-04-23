@@ -28,35 +28,35 @@
       <tab name="Pizzas" :selected="true">
         <div class="row">
           @foreach ($pizzas as $pizza)
-            <menu-item name="{{ $pizza->type }}" price="{{ $pizza->price }}" description="{{ $pizza->description }}" propid="{{ $pizza->id }}" table="pizza"></menu-item>
+            <menu-item name="{{ $pizza->type }}" price="{{ $pizza->price }}" description="{{ $pizza->description }}" propid="{{ $pizza->id }}" table="pizza" picture="{{ $pizza->user_photo }}"></menu-item>
           @endforeach
         </div>
       </tab>
       <tab name="Entrees">
         <div class="row">
         @foreach ($entrees as $entree)
-          <menu-item name="{{ $entree->name }}" price="{{ $entree->price }}" description="{{ $entree->description }}" propid="{{ $entree->id }}" table="entree"></menu-item>
+          <menu-item name="{{ $entree->name }}" price="{{ $entree->price }}" description="{{ $entree->description }}" propid="{{ $entree->id }}" table="entree" picture="{{ $entree->user_photo }}"></menu-item>
         @endforeach
         </div>
       </tab>
       <tab name="Appetizers">
         <div class="row">
           @foreach ($apps as $app)
-            <menu-item name="{{ $app->name }}" price="{{ $app->price }}" description="{{ $app->description }}" propid="{{ $app->id }}" table="app"></menu-item>
+            <menu-item name="{{ $app->name }}" price="{{ $app->price }}" description="{{ $app->description }}" propid="{{ $app->id }}" table="app" picture="{{ $app->user_photo }}"></menu-item>
           @endforeach
         </div>
       </tab>
       <tab name="Drinks">
         <div class="row">
         @foreach ($drinks as $drink)
-          <menu-item name="{{ $drink->brand }}" price="{{ $drink->price }}" description="{{ $drink->description }}" propid="{{ $drink->id }}" table="drink"></menu-item>
+          <menu-item name="{{ $drink->brand }}" price="{{ $drink->price }}" description="{{ $drink->description }}" propid="{{ $drink->id }}" table="drink"  picture="{{ $drink->user_photo }}"></menu-item>
         @endforeach
         </div>
       </tab>
       <tab name="Desserts">
         <div class="row">
         @foreach ($desserts as $dessert)
-          <menu-item name="{{ $dessert->name }}" price="{{ $dessert->price }}" description="{{ $dessert->description }}" propid="{{ $dessert->id }}" table="dessert"></menu-item>
+          <menu-item name="{{ $dessert->name }}" price="{{ $dessert->price }}" description="{{ $dessert->description }}" propid="{{ $dessert->id }}" table="dessert"  picture="{{ $dessert->user_photo }}"></menu-item>
         @endforeach
         </div>
       </tab>

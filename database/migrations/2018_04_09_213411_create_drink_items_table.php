@@ -18,6 +18,7 @@ class CreateDrinkitemsTable extends Migration
             $table->String('brand');
             $table->text('description');
             $table->double('price');
+            $table->String('user_photo');
             $table->timestamps();
         });
     }

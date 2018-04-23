@@ -42,7 +42,20 @@ class ToppingItemController extends Controller
             'price' => 'required'
         ]);
         // dd(request()->all());
-        ToppingItem::create(request(['type', 'description', 'price']));
+        $photoName = time().'.'.$request->user_photo->getClientOriginalExtension();
+
+        /*
+        talk the select file and move it public directory and make avatars
+        folder if doesn't exsit then give it that unique name.
+        */
+        $request->user_photo->move(public_path('storage/avatars'), $photoName);
+        $topping = new ToppingItem;
+        $topping->name = request('name');
+        $topping->description = request('description');
+        $topping->price = request('price');
+        $topping->user_photo = $photoName;
+        $topping->save();
+        // ToppingItem::create(request(['type', 'description', 'price']));
 
         return redirect('/toppings');
     }

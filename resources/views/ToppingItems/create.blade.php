@@ -2,8 +2,12 @@
   @section ('content')
     <div class="container">
     <h1>Create a new Topping</h1>
-    <form action="/toppings" method="post">
+    <form action="/toppings" method="post" enctype="multipart/form-data">
       {{ csrf_field() }}
+      <div class="form-group">
+        <label for="user_photo">Avatar</label>
+        <input type="file" name="user_photo" accept="image/*">
+      </div>
       <div class="form-group">
         <label for="type">Type</label>
         <input type="text" class="form-control" id="type" name="type">

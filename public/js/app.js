@@ -13978,13 +13978,14 @@ Vue.component('tab', {
 });
 
 Vue.component('menu-item', {
-  template: '\n    <div class="col-md-6">\n      <h1 class="d-inline">{{ name }}</h1>\n      <i class="fa fa-info-circle float-right" data-toggle="tooltip" data-placement="bottom" :title="description"></i>\n      <h3>${{ getPrice }} </h3>\n      <div class="form-group">\n        <label for="size">Size</label>\n        <select class="form-control" name="size" v-model="size">\n          <option value="S">Small</option>\n          <option value="M">Medium</option>\n          <option value="L">Large</option>\n        </select>\n      </div>\n      <div class="form-row">\n        <div class="form-group col-md-2">\n          <input type="number" name="quantity" value="1" class="form-control" min="1" max="10" v-model="quantity">\n        </div>\n        <div class="form-group col-md-10">\n          <button type="button" name="button" class="btn btn-primary" @click.prevent="onSubmit"><i class="fa fa-plus"></i> Add to Order</button>\n        </div>\n      </div>\n    </div>\n  ',
+  template: '\n    <div class="col-md-6">\n      <img :src="picturePath" :alt="name" class="img-fluid" />\n      <h1 class="d-inline">{{ name }}</h1>\n      <i class="fa fa-info-circle float-right" data-toggle="tooltip" data-placement="bottom" :title="description"></i>\n      <h3>${{ getPrice }} </h3>\n      <div class="form-group">\n        <label for="size">Size</label>\n        <select class="form-control" name="size" v-model="size">\n          <option value="S">Small</option>\n          <option value="M">Medium</option>\n          <option value="L">Large</option>\n        </select>\n      </div>\n      <div class="form-row">\n        <div class="form-group col-md-2">\n          <input type="number" name="quantity" value="1" class="form-control" min="1" max="10" v-model="quantity">\n        </div>\n        <div class="form-group col-md-10">\n          <button type="button" name="button" class="btn btn-primary" @click.prevent="onSubmit"><i class="fa fa-plus"></i> Add to Order</button>\n        </div>\n      </div>\n    </div>\n  ',
   props: {
     name: { required: true },
     price: { required: true },
     description: { required: true },
     propid: { required: true },
-    table: { required: true }
+    table: { required: true },
+    picture: { required: true }
   },
   data: function data() {
     return {
@@ -14003,6 +14004,9 @@ Vue.component('menu-item', {
         size: this.size,
         quantity: this.quantity,
         table: this.table };
+    },
+    picturePath: function picturePath() {
+      return "/storage/avatars/" + this.picture;
     },
     getPrice: function getPrice() {
       return (parseInt(this.quantity) * parseFloat(this.price)).toFixed(2);

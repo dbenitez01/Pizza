@@ -41,8 +41,20 @@ class DrinkItemController extends Controller
         'description' => 'required',
         'price' => 'required'
       ]);
-      // dd(request()->all());
-      DrinkItem::create(request(['brand', 'description','price']));
+      // dd(request()->all());$photoName = time().'.'.$request->user_photo->getClientOriginalExtension();
+      $photoName = time().'.'.$request->user_photo->getClientOriginalExtension();
+      /*
+      talk the select file and move it public directory and make avatars
+      folder if doesn't exsit then give it that unique name.
+      */
+      $request->user_photo->move(public_path('storage/avatars'), $photoName);
+      $drink = new DrinkItem;
+      $drink->brand = request('brand');
+      $drink->description = request('description');
+      $drink->price = request('price');
+      $drink->user_photo = $photoName;
+      $drink->save();
+      // DrinkItem::create(request(['brand', 'description','price']));
 
       return redirect('/drinks');
     }

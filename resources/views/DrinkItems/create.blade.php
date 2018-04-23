@@ -2,8 +2,12 @@
   @section ('content')
     <div class="container">
     <h1>Create a new Drink</h1>
-    <form action="/drinks" method="post">
+    <form action="/drinks" method="post" enctype="multipart/form-data">
       {{ csrf_field() }}
+      <div class="form-group">
+        <label for="user_photo">Avatar</label>
+        <input type="file" name="user_photo" accept="image/*">
+      </div>
       <div class="form-group">
         <label for="brand">Brand</label>
         <input type="text" class="form-control" id="brand" name="brand">

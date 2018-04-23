@@ -38,3 +38,14 @@ Route::get('/cart', 'HomeController@cart')->name('cart.index');
 Route::post('/cart/removeitem', 'HomeController@cartRemove');
 Route::get('cart/confirm','HomeController@cartConfirm')->name('cart.confirm');
 Route::post('/cart/updatecart', 'HomeController@updateCart');
+
+// Route::any('matriphe/imageupload', function() 
+// {
+//     $data = [];
+//
+//     if (Request::hasFile('file')) {
+//         $data['result'] = Imageupload::upload(Request::file('file'));
+//     }
+//
+//     return view('form.blade.php')->with($data);
+// });

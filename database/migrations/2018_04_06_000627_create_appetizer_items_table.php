@@ -18,6 +18,7 @@ class CreateAppetizerItemsTable extends Migration
             $table->String('name');
             $table->text('description');
             $table->double('price');
+            $table->String('user_photo');
             $table->timestamps();
         });
     }

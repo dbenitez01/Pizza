@@ -43,7 +43,21 @@ class AppetizerItemController extends Controller
         'price' => 'required'
       ]);
       // dd(request()->all());
-      AppetizerItem::create(request(['name', 'description','price']));
+
+      $photoName = time().'.'.$request->user_photo->getClientOriginalExtension();
+
+      /*
+      talk the select file and move it public directory and make avatars
+      folder if doesn't exsit then give it that unique name.
+      */
+      $request->user_photo->move(public_path('storage/avatars'), $photoName);
+      $app = new AppetizerItem;
+      $app->name = request('name');
+      $app->description = request('description');
+      $app->price = request('price');
+      $app->user_photo = $photoName;
+      $app->save();
+      // AppetizerItem::create(request(['name', 'description','price']));
 
       return redirect('/appetizers');
     }

@@ -43,7 +43,21 @@ class DessertItemController extends Controller
             'price' => 'required'
         ]);
         // dd(request()->all());
-        DessertItem::create(request(['name', 'description','price']));
+
+        $photoName = time().'.'.$request->user_photo->getClientOriginalExtension();
+
+        /*
+        talk the select file and move it public directory and make avatars
+        folder if doesn't exsit then give it that unique name.
+        */
+        $request->user_photo->move(public_path('storage/avatars'), $photoName);
+        $dessert = new DessertItem;
+        $dessert->name = request('name');
+        $dessert->description = request('description');
+        $dessert->price = request('price');
+        $dessert->user_photo = $photoName;
+        $dessert->save();
+        // DessertItem::create(request(['name', 'description','price']));
 
         return redirect('/desserts');
     }

@@ -43,7 +43,21 @@ class EntreeItemController extends Controller
             'price' => 'required'
         ]);
         // dd(request()->all());
-        EntreeItem::create(request(['name','description','price']));
+
+        $photoName = time().'.'.$request->user_photo->getClientOriginalExtension();
+
+        /*
+        talk the select file and move it public directory and make avatars
+        folder if doesn't exsit then give it that unique name.
+        */
+        $request->user_photo->move(public_path('storage/avatars'), $photoName);
+        $entree = new EntreeItem;
+        $entree->name = request('name');
+        $entree->description = request('description');
+        $entree->price = request('price');
+        $entree->user_photo = $photoName;
+        $entree->save();
+        // EntreeItem::create(request(['name','description','price']));
 
         return redirect('/entrees');
     }

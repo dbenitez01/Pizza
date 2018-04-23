@@ -110,6 +110,7 @@ Vue.component('tab', {
 Vue.component('menu-item', {
   template: `
     <div class="col-md-6">
+      <img :src="picturePath" :alt="name" class="img-fluid" />
       <h1 class="d-inline">{{ name }}</h1>
       <i class="fa fa-info-circle float-right" data-toggle="tooltip" data-placement="bottom" :title="description"></i>
       <h3>\${{ getPrice }} </h3>
@@ -136,7 +137,8 @@ Vue.component('menu-item', {
     price: { required: true},
     description: {required: true},
     propid: { required: true},
-    table: { required: true}
+    table: { required: true},
+    picture: { required: true }
   },
   data() {
     return {
@@ -154,6 +156,9 @@ Vue.component('menu-item', {
               size: this.size,
               quantity: this.quantity,
               table: this.table};
+    },
+    picturePath() {
+      return "/storage/avatars/" + this.picture;
     },
     getPrice() {
       return (parseInt(this.quantity) * parseFloat(this.price)).toFixed(2);

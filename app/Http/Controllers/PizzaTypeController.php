@@ -42,7 +42,23 @@ class PizzaTypeController extends Controller
         'price' => 'required'
       ]);
       // dd(request()->all());
-      PizzaTypes::create(request(['type', 'description','price']));
+
+      // get current time and append the upload file extension to it,
+ // then put that name to $photoName variable.
+       $photoName = time().'.'.$request->user_photo->getClientOriginalExtension();
+
+       /*
+       talk the select file and move it public directory and make avatars
+       folder if doesn't exsit then give it that unique name.
+       */
+       $request->user_photo->move(public_path('storage/avatars'), $photoName);
+       $pizza = new PizzaTypes;
+       $pizza->type = request('type');
+       $pizza->description = request('description');
+       $pizza->price = request('price');
+       $pizza->user_photo = $photoName;
+       $pizza->save();
+      // PizzaTypes::create(request(['type', 'description','price']));
 
       return redirect('/pizzas');
     }
