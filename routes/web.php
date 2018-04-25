@@ -29,9 +29,10 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/orders', 'OrderController@index')->name('orders');
+Route::get('/orders', 'OrderController@index')->name('orders.index');
 Route::get('/menu', 'OrderController@create')->name('orders.create');
 Route::post('/orders', 'OrderController@store')->name('orders.store');
+Route::get('/orders/{id}', 'OrderController@show')->name('orders.show');
 
 Route::post('/cart', 'HomeController@addToCart');
 Route::get('/cart', 'HomeController@cart')->name('cart.index');
@@ -39,7 +40,7 @@ Route::post('/cart/removeitem', 'HomeController@cartRemove');
 Route::get('cart/confirm','HomeController@cartConfirm')->name('cart.confirm');
 Route::post('/cart/updatecart', 'HomeController@updateCart');
 
-// Route::any('matriphe/imageupload', function() 
+// Route::any('matriphe/imageupload', function()
 // {
 //     $data = [];
 //

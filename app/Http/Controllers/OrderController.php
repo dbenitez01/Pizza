@@ -16,6 +16,7 @@ use App\Entree;
 use App\Dessert;
 use App\Appetizer;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 
 class OrderController extends Controller
@@ -31,8 +32,26 @@ class OrderController extends Controller
   public function index()
   {
       // Display the orders
-      $orders = Order::all();
+      $orders = Order::orderBy('created_at', 'asc')->get();
+      // $orders = DB::table('orders')
+      // ->leftjoin('pizzas', 'orders.id', '=','pizzas.orderId')
+      // ->leftjoin('appetizers','orders.id','=','appetizers.order_id')
+      // ->leftjoin('drinks','orders.id','=','drinks.order_id')
+      // ->leftjoin('desserts','orders.id','=','desserts.order_id')
+      // ->leftjoin('entrees','orders.id','=','entrees.order_id')
+      // ->select('orders.*', 'pizzas.pizzaTypeId','pizzas.quantity as pizza_quantity','pizzas.size as pizza_size'
+      // ,'appetizers.appetizer_item_id','appetizers.quantity as appetizer_quantity','appetizers.size as appetizer_size',
+      // 'drinks.drinkitem_id', 'drinks.quantity as drink_quantity','drinks.size as drink_size',
+      // 'desserts.dessert_item_id','desserts.quantity as desserts_quantity','desserts.size as desserts_size',
+      // 'entrees.entree_item_id','entrees.quantity as entree_quantity','entrees.size as entree_size')
+      // ->get();
       return view ('orders.index', compact('orders'));
+  }
+
+  public function show($id){
+    $order = Order::find($id);
+    $pizzas = Pizza::where('orderId', '=', $order->id)->get();
+    return view ('orders.show', compact('order', 'pizzas'));
   }
 
   public function create() {
@@ -51,7 +70,7 @@ class OrderController extends Controller
     $cart = session()->get('cart');
     $total_price = 0;
     foreach ($cart as $item) {
-      $total_price += $item['price'];
+      $total_price += ($item['price'] * intval($item['quantity']));
     }
 
     $order = new Order;
