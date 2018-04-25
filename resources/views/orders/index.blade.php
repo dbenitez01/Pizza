@@ -11,6 +11,7 @@
           <th>Status</th>
           <th>Order Items</th>
           <th>Customer</th>
+          <th>Total</th>
           <th>Date</th>
           <th></th>
         </tr>
@@ -45,6 +46,7 @@
               @endphp
             </td>
             <td>{{ $order->user->name}}</td>
+            <td>${{ $order->total_price}}</td>
             <td>{{ $order->created_at->diffForHumans() }}</td>
             <td><a href="/orders/{{ $order->id }}" class="btn btn-primary">View</a></td>
           {{-- @php
