@@ -1,9 +1,20 @@
+{{require_once('C:\Project\TheActualPizzaOne\vendor\autoload.php')}}
 @extends ('layouts.master')
 @section ('content')
-  <div class="container">
+    <script src="https://js.stripe.com/v3/">// This will work:
+        document.getElementById("button").addEventListener("click", function() {
+            handler.open({
+                image: '/square-image.png',
+                name: 'Demo Site',
+                description: '2 widgets',
+                amount: 2000
+            });
+        });</script>
+    <div class="container">
       <h1>My Cart</h1>
-    <form action="{{ route('orders.store') }}" method="post">
-      {{ csrf_field() }}
+
+      <form action="/make-payment" method="POST">
+
       <div class="row">
         <div class="col-md-9">
           <div class="form-group">
@@ -57,6 +68,7 @@
         </div>
       </div>
         <div class="col-md-3">
+        -->
           <h3>My Order</h3>
           {{-- <pre>
 
@@ -83,12 +95,24 @@
             <hr>
             <h3>Total: ${{ sprintf('%0.2f', $total) }}</h3>
           </div>
-          <input type="Submit" name="Submit" value="Submit Order" class="btn btn-primary">
+          {{ csrf_field() }}
+          <script
+                  src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                  data-key="{{ config('services.stripe.key') }}"
+                  data-amount="{{$total}}"
+                  data-name="test"
+                  data-description="This is good start up book."
+                  data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                  data-locale="auto">
+          </script>
         </div>
+        </div>
+        </form>
+       <!--
+       </div>
       </div>
-    </form>
+      -->
     {{-- <pre>
-
       @php
         print_r($cart);
       @endphp

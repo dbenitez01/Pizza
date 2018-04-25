@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\UseSSL;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -60,5 +61,6 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'admin' => \App\Http\Middleware\CheckAdmin::class,
+        'use.ssl' => UseSSL::class
     ];
 }

@@ -38,3 +38,5 @@ Route::get('/cart', 'HomeController@cart')->name('cart.index');
 Route::post('/cart/removeitem', 'HomeController@cartRemove');
 Route::get('cart/confirm','HomeController@cartConfirm')->name('cart.confirm');
 Route::post('/cart/updatecart', 'HomeController@updateCart');
+Route::get('confirm', 'CheckoutController@payment')->name('cart.confirm');
+Route::post('/make-payment', 'PaymentsController@pay');
