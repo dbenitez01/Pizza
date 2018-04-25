@@ -24,23 +24,23 @@
               @php
                 $pizzas = $order->pizzas;
                 foreach ($pizzas as $pizza) {
-                  echo $pizza->quantity. " x " . $pizza->type->type . "<br />";
+                  echo $pizza->quantity. " &times; (" . $pizza->size. ") " .$pizza->type->type . "<br />";
                 }
                 $appetizers = $order->appetizers;
                 foreach ($appetizers as $app) {
-                  echo $app->quantity. " x " .$app->item->name . "<br />";
+                  echo $app->quantity. " &times; (" . $app->size. ") " .$app->item->name . "<br />";
                 }
                 $entrees = $order->entrees;
                 foreach ($entrees as $entree) {
-                  echo $entree->quantity. " x " .$entree->item->name . "<br />";
+                  echo $entree->quantity. " &times; (" . $entree->size. ") " .$entree->item->name . "<br />";
                 }
                 $drinks = $order->drinks;
                 foreach ($drinks as $drink) {
-                  echo $drink->quantity. " x " .$drink->item->brand . "<br />";
+                  echo $drink->quantity. " &times; (" . $drink->size. ") " .$drink->item->brand . "<br />";
                 }
                 $desserts = $order->desserts;
                 foreach ($desserts as $dessert) {
-                  echo $dessert->quantity. " x " .$dessert->item->name . "<br />";
+                  echo $dessert->quantity. " &times; (" . $dessert->size. ") " .$dessert->item->name . "<br />";
                 }
               @endphp
             </td>
