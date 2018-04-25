@@ -25,7 +25,7 @@ class OrderController extends Controller
     {
         // $this->middleware('auth');
         // Redirect to home if they're not an admin
-        $this->middleware('admin')->only('index');
+        $this->middleware('admin')->only('index','show');
 
         // $this->middleware('subscribed')->except('store');
     }
