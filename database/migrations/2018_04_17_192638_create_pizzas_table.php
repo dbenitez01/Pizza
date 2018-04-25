@@ -16,7 +16,7 @@ class CreatePizzasTable extends Migration
         Schema::create('pizzas', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('pizzaTypeId');
-            $table->integer('orderId');
+            $table->integer('order_id');
             $table->double('subtotal_price');
             $table->integer('quantity');
             $table->char('size', 1);

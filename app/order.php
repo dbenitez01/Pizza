@@ -10,7 +10,7 @@ class Order extends Model
     return $this->hasMany(Appetizer::class);
   }
   public function drinks() {
-    return $this->hasMany(Drinks::class);
+    return $this->hasMany(Drink::class);
   }
   public function desserts() {
     return $this->hasMany(Dessert::class);

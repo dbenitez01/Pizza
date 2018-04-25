@@ -32,7 +32,7 @@ class OrderController extends Controller
   public function index()
   {
       // Display the orders
-      $orders = Order::orderBy('created_at', 'asc')->get();
+      $orders = Order::where('status','=','new')->get();
       // $orders = DB::table('orders')
       // ->leftjoin('pizzas', 'orders.id', '=','pizzas.orderId')
       // ->leftjoin('appetizers','orders.id','=','appetizers.order_id')
@@ -50,7 +50,7 @@ class OrderController extends Controller
 
   public function show($id){
     $order = Order::find($id);
-    $pizzas = Pizza::where('orderId', '=', $order->id)->get();
+    $pizzas = $order->pizzas;
     return view ('orders.show', compact('order', 'pizzas'));
   }
 
@@ -85,7 +85,7 @@ class OrderController extends Controller
       switch ($item['table']) {
         case 'pizza':
           $pizza = new Pizza;
-          $pizza->orderId = $order->id;
+          $pizza->order_id = $order->id;
           $pizza->pizzaTypeId = $item['id'];
           $pizza->subtotal_price = sprintf('%0.2f', $item['price'] * $item['quantity']);
           $pizza->quantity = $item['quantity'];
