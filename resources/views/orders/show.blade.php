@@ -5,8 +5,16 @@
     <h1>Order {{ $order->id }}</h1>
     @foreach ($pizzas as $pizza)
       @php
-        $pizzaName = App\PizzaTypes::find($pizza->pizzaTypeId);
+        $pizzaName = $pizza->type;
         echo $pizzaName->type;
+      @endphp
+      {{ $pizza->pizzaTypeId }}
+    @endforeach
+
+    @foreach ($entrees as $entree)
+      @php
+        $entreeName = $entree->item;
+        echo $pizzaName->name;
       @endphp
       {{ $pizza->pizzaTypeId }}
     @endforeach

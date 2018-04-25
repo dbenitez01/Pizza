@@ -50,8 +50,13 @@ class OrderController extends Controller
 
   public function show($id){
     $order = Order::find($id);
+
     $pizzas = $order->pizzas;
-    return view ('orders.show', compact('order', 'pizzas'));
+    $entrees = $order->entrees;
+    $appetizers = $order->appetizers;
+    $drinks = $order->drink;
+    $desserts = $order->desserts;
+    return view ('orders.show', compact('order', 'pizzas','entrees','appetizers','drinks','desserts'));
   }
 
   public function create() {
