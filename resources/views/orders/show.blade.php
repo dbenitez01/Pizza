@@ -30,7 +30,7 @@
     @foreach ($appetizers as $appetizer)
       @php
         $appetizerName = $appetizer->item;
-        echo $app->quantity. " &times; (" . $app->size. ") " .$app->item->name . " for $". $appetizer->subtotal_price. "<br />";
+        echo $appetizer->quantity. " &times; (" . $appetizer->size. ") " .$appetizer->item->name . " for $". $appetizer->subtotal_price. "<br />";
       @endphp
     @endforeach
 
