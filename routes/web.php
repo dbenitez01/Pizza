@@ -10,33 +10,34 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::group(array('middleware' => 'UseSSL'), function() {
+    Route::get('/', function () {
+        $cart = session('cart');
+        return view('welcome', compact('cart'));
+    });
 
-Route::get('/', function () {
-    $cart = session('cart');
-    return view('welcome', compact('cart'));
+    Route::resource('appetizers', 'AppetizerItemController')->middleware('admin');
+    Route::resource('drinks', 'DrinkItemController')->middleware('admin');
+    Route::resource('desserts', 'DessertItemController')->middleware('admin');
+    Route::resource('entrees', 'EntreeItemController')->middleware('admin');
+    Route::resource('toppings', 'ToppingItemController')->middleware('admin');
+    Route::resource('pizzas', 'PizzaTypeController')->middleware('admin');
+    Route::resource('locations', 'LocationController')->middleware('admin');
+
+
+    Auth::routes();
+
+    Route::get('/home', 'HomeController@index')->name('home');
+
+    Route::get('/orders', 'OrderController@index')->name('orders');
+    Route::get('/menu', 'OrderController@create')->name('orders.create');
+    Route::post('/orders', 'OrderController@store')->name('orders.store');
+
+    Route::post('/cart', 'HomeController@addToCart');
+    Route::get('/cart', 'HomeController@cart')->name('cart.index');
+    Route::post('/cart/removeitem', 'HomeController@cartRemove');
+    Route::get('cart/confirm', 'HomeController@cartConfirm')->name('cart.confirm');
+    Route::post('/cart/updatecart', 'HomeController@updateCart');
+    Route::get('confirm', 'CheckoutController@payment')->name('cart.confirm');
+    Route::post('/make-payment', 'PaymentsController@pay');
 });
-
-Route::resource('appetizers', 'AppetizerItemController')->middleware('admin');
-Route::resource('drinks',  'DrinkItemController')->middleware('admin');
-Route::resource('desserts', 'DessertItemController')->middleware('admin');
-Route::resource('entrees', 'EntreeItemController')->middleware('admin');
-Route::resource('toppings', 'ToppingItemController')->middleware('admin');
-Route::resource('pizzas', 'PizzaTypeController')->middleware('admin');
-Route::resource('locations', 'LocationController')->middleware('admin');
-
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Route::get('/orders', 'OrderController@index')->name('orders');
-Route::get('/menu', 'OrderController@create')->name('orders.create');
-Route::post('/orders', 'OrderController@store')->name('orders.store');
-
-Route::post('/cart', 'HomeController@addToCart');
-Route::get('/cart', 'HomeController@cart')->name('cart.index');
-Route::post('/cart/removeitem', 'HomeController@cartRemove');
-Route::get('cart/confirm','HomeController@cartConfirm')->name('cart.confirm');
-Route::post('/cart/updatecart', 'HomeController@updateCart');
-Route::get('confirm', 'CheckoutController@payment')->name('cart.confirm');
-Route::post('/make-payment', 'PaymentsController@pay');
