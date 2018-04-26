@@ -25,7 +25,7 @@ class OrderController extends Controller
     {
         // $this->middleware('auth');
         // Redirect to home if they're not an admin
-        $this->middleware('admin')->only('index','show');
+        $this->middleware('admin')->only('index','show', 'complete');
 
         // $this->middleware('subscribed')->except('store');
     }
@@ -33,18 +33,6 @@ class OrderController extends Controller
   {
       // Display the orders
       $orders = Order::where('status','=','new')->get();
-      // $orders = DB::table('orders')
-      // ->leftjoin('pizzas', 'orders.id', '=','pizzas.orderId')
-      // ->leftjoin('appetizers','orders.id','=','appetizers.order_id')
-      // ->leftjoin('drinks','orders.id','=','drinks.order_id')
-      // ->leftjoin('desserts','orders.id','=','desserts.order_id')
-      // ->leftjoin('entrees','orders.id','=','entrees.order_id')
-      // ->select('orders.*', 'pizzas.pizzaTypeId','pizzas.quantity as pizza_quantity','pizzas.size as pizza_size'
-      // ,'appetizers.appetizer_item_id','appetizers.quantity as appetizer_quantity','appetizers.size as appetizer_size',
-      // 'drinks.drinkitem_id', 'drinks.quantity as drink_quantity','drinks.size as drink_size',
-      // 'desserts.dessert_item_id','desserts.quantity as desserts_quantity','desserts.size as desserts_size',
-      // 'entrees.entree_item_id','entrees.quantity as entree_quantity','entrees.size as entree_size')
-      // ->get();
       return view ('orders.index', compact('orders'));
   }
 
@@ -54,9 +42,20 @@ class OrderController extends Controller
     $pizzas = $order->pizzas;
     $entrees = $order->entrees;
     $appetizers = $order->appetizers;
-    $drinks = $order->drink;
+    $drinks = $order->drinks;
     $desserts = $order->desserts;
     return view ('orders.show', compact('order', 'pizzas','entrees','appetizers','drinks','desserts'));
+  }
+
+  public function archived(){
+    $orders = Order::where('status','=','complete')->get();
+    return view ('orders.archived', compact('orders'));
+  }
+  public function complete($id) {
+    $order = Order::find($id);
+    $order->status = 'complete';
+    $order->save();
+    return redirect()->route('orders.index');
   }
 
   public function create() {
@@ -83,6 +82,7 @@ class OrderController extends Controller
     $order->total_price = sprintf('%0.2f',$total_price);
     $order->location_id = 1;
     $order->status = "new";
+    $order->type = "delivery";
     $order->save();
 
     $order = Order::latest()->first();

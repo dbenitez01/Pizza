@@ -32,21 +32,12 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/orders', 'OrderController@index')->name('orders.index');
 Route::get('/menu', 'OrderController@create')->name('orders.create');
 Route::post('/orders', 'OrderController@store')->name('orders.store');
+Route::get('/orders/archived', 'OrderController@archived')->name('orders.archived');
 Route::get('/orders/{id}', 'OrderController@show')->name('orders.show');
+Route::get('/orders/{id}/complete', 'OrderController@complete')->name('orders.complete');
 
 Route::post('/cart', 'HomeController@addToCart');
 Route::get('/cart', 'HomeController@cart')->name('cart.index');
 Route::post('/cart/removeitem', 'HomeController@cartRemove');
 Route::get('cart/confirm','HomeController@cartConfirm')->name('cart.confirm');
 Route::post('/cart/updatecart', 'HomeController@updateCart');
-
-// Route::any('matriphe/imageupload', function()
-// {
-//     $data = [];
-//
-//     if (Request::hasFile('file')) {
-//         $data['result'] = Imageupload::upload(Request::file('file'));
-//     }
-//
-//     return view('form.blade.php')->with($data);
-// });

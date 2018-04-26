@@ -49,6 +49,7 @@
 
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('orders.index') }}">View Current Orders</a>
+                                    <a class="dropdown-item" href="{{ route('orders.archived') }}">View Old Orders</a>
                             </div>
                           @endif
                         @endauth

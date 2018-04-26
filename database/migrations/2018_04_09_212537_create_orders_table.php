@@ -19,6 +19,7 @@ class CreateOrdersTable extends Migration
             $table->integer('user_id');
             $table->integer('location_id');
             $table->enum('status', ['new', 'in progress','complete']);
+            $table->enum('type', ['delivery', 'take out']);
             $table->timestamps();
         });
     }

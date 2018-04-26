@@ -1,8 +1,8 @@
 @extends ('layouts.master')
 @section ('content')
   <div class="container">
-    {{-- TODO: Orders --}}
-    <h1>Current Orders</h1>
+    <h1>Old Orders</h1>
+
     <table class="table">
 
       <thead>
@@ -58,7 +58,6 @@
             <td>${{ $order->total_price}}</td>
             <td>{{ $order->created_at->diffForHumans() }}</td>
             <td><a href="/orders/{{ $order->id }}" class="btn btn-primary">View</a></td>
-            <td><a href="/orders/{{ $order->id }}/complete" class="btn btn-success">Complete</a></td>
           {{-- @php
             $pizzas = App\Pizza::find($order->id)->get();
 
