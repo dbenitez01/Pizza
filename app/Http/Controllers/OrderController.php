@@ -26,6 +26,8 @@ class OrderController extends Controller
         // $this->middleware('auth');
         // Redirect to home if they're not an admin
         $this->middleware('admin')->only('index','show', 'complete');
+        $this->middleware('auth')->only('past');
+        // $this->middleware('checkuser')->only('show');
 
         // $this->middleware('subscribed')->except('store');
     }
@@ -37,8 +39,12 @@ class OrderController extends Controller
   }
 
   public function show($id){
+
     $order = Order::find($id);
 
+    if (!Auth::check() || Auth::user()->id != $order->user->id) {
+        return redirect('/');
+    }
     $pizzas = $order->pizzas;
     $entrees = $order->entrees;
     $appetizers = $order->appetizers;
@@ -56,6 +62,11 @@ class OrderController extends Controller
     $order->status = 'complete';
     $order->save();
     return redirect()->route('orders.index');
+  }
+
+  public function past(){
+    $orders = Order::where('user_id','=', Auth::user()->id)->get();
+    return view('orders.past', compact('orders'));
   }
 
   public function create() {
@@ -76,7 +87,7 @@ class OrderController extends Controller
     foreach ($cart as $item) {
       $total_price += ($item['price'] * intval($item['quantity']));
     }
-
+    $total_price /= 0.875;
     $order = new Order;
     $order->user_id = Auth::user()->id;
     $order->total_price = sprintf('%0.2f',$total_price);

@@ -8,22 +8,22 @@
         <div class="col-md-9">
           <div class="form-group">
               <label for="credit-card">Credit Card Number</label>
-              <input type="text" name="credit-card" class="form-control" placeholder="Card Number: XXXXXXXXXXXXXXXX">
+              <input type="text" name="credit-card" class="form-control" placeholder="Card Number: XXXXXXXXXXXXXXXX" required>
           </div>
           <div class="form-group">
             <label for="cvv">CVV</label>
-            <input type="text" name="cvv" class="form-control w-25" placeholder="XXX">
+            <input type="text" name="cvv" class="form-control w-25" placeholder="XXX" required>
           </div>
           <div class="form-group">
             <label for="name">Name on Card</label>
-            <input type="text" name="name" class="form-control" placeholder="Name on Card">
+            <input type="text" name="name" class="form-control" placeholder="Name on Card" required>
           </div>
           <div class="form-row">
             <div class="col">
 
 
             <label for="name">Expiration Month</label>
-            <select class="form-control" name="month">
+            <select class="form-control" name="month" required>
               <option selected disabled hidden>Month</option>
               <option value="1">January</option>
               <option value="2">February</option>
@@ -42,7 +42,7 @@
             </div>
             <div class="col">
               <label for="days">Expiration Day</label>
-            <select class="form-control" name="days">
+            <select class="form-control" name="days" required>
               <option selected disabled hidden>Day</option>
               @for ($i=1; $i < 32; $i++)
                 <option value="{{ $i }}">{{ $i }}</option>
@@ -51,7 +51,7 @@
           </div>
           <div class="col">
             <label for="zip">Zip Code</label>
-            <input type="text" name="zip" placeholder="Zip Code" class="form-control">
+            <input type="text" name="zip" placeholder="Zip Code" class="form-control" required>
           </div>
 
         </div>

@@ -4,7 +4,7 @@
     <div class="text-center">
       {{-- TODO: Orders --}}
       <form>
-      <h1 class="mt-3">Find A Local {{ config('app.name', 'Laravel') }}</h1>
+      {{-- <h1 class="mt-3">Find A Local {{ config('app.name', 'Laravel') }}</h1>
       <div class="row justify-content-center"> <!-- icon row -->
         <div class="col-md-2">
           <div class="d-inline-block">
@@ -20,7 +20,7 @@
             <p>Carry Out</p></a>
           </div>
         </div>
-      </div> <!-- End icon row -->
+      </div> <!-- End icon row --> --}}
     </div>
     {{-- TODO: List locaions when clicking one of the buttons --}}
     <div class="danger" v-text="errors.get('name')"></div>

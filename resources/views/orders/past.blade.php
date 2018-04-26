@@ -1,11 +1,7 @@
 @extends ('layouts.master')
 @section ('content')
   <div class="container">
-    {{-- TODO: Orders --}}
-    <h1>Current Orders</h1>
-    @php
-      $current = true;
-    @endphp
+    <h1>My Past Orders</h1>
     @include('orders.partials.orders')
   </div>
 

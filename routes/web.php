@@ -32,6 +32,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/orders', 'OrderController@index')->name('orders.index');
 Route::get('/menu', 'OrderController@create')->name('orders.create');
 Route::post('/orders', 'OrderController@store')->name('orders.store');
+Route::get('/orders/past', 'OrderController@past')->name('orders.past');
 Route::get('/orders/archived', 'OrderController@archived')->name('orders.archived');
 Route::get('/orders/{id}', 'OrderController@show')->name('orders.show');
 Route::get('/orders/{id}/complete', 'OrderController@complete')->name('orders.complete');

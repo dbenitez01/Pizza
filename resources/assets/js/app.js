@@ -181,7 +181,7 @@ Vue.component('menu-item', {
     },
 
     onSuccess(response) {
-      // alert(response.data.cart);
+      alert("You have successfully added " + this.name + " to your cart!");
       app.$emit('applied');
       // location.reload();
     }
@@ -293,8 +293,8 @@ Vue.component('cart-item', {
       size: { required: true },
       price: { required: true },
       quantity: { required: true },
-      table: { required: true },
-      propid: { required: true }
+      table: {  },
+      propid: {  }
     },
     computed: {
       getSize() {
